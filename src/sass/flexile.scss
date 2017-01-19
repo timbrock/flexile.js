@@ -1,24 +1,43 @@
 .flexile-slideshow{
-  background-color: #e5e5e5;
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
 	box-sizing: border-box;
 	position: relative;
+  overflow: hidden;
   -webkit-text-size-adjust: none;
 
 	.flexile-screen{
+    background-color: #000000;
 		position: relative;
 		width: 100%;
-		height: 56.25vw;
+		/*height: 56.25vw;*/
 		top: 0px;
+  }
+  
+  $trans-time: 1s;
+  
+  .flexile-box{
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
   }
   
   .flexile-slide{
 		width: 100%;
 		height: 100%;
+    background-color: #e5e5e5;
 		position: absolute;
 		overflow: hidden;
+    transition-duration: $trans-time;
+  }
+  
+  .flexile-slide-discard{
+    transform: translateX(105%);
   }
 
 }

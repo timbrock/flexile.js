@@ -1,26 +1,43 @@
 /* line 1, ../sass/flexile.scss */
 .flexile-slideshow {
-  background-color: #e5e5e5;
   width: 100%;
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
   position: relative;
+  overflow: hidden;
   -webkit-text-size-adjust: none;
 }
 /* line 10, ../sass/flexile.scss */
 .flexile-slideshow .flexile-screen {
+  background-color: #000000;
   position: relative;
   width: 100%;
-  height: 56.25vw;
+  /*height: 56.25vw;*/
   top: 0px;
 }
-/* line 17, ../sass/flexile.scss */
+/* line 20, ../sass/flexile.scss */
+.flexile-slideshow .flexile-box {
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+/* line 30, ../sass/flexile.scss */
 .flexile-slideshow .flexile-slide {
   width: 100%;
   height: 100%;
+  background-color: #e5e5e5;
   position: absolute;
   overflow: hidden;
+  transition-duration: 1s;
+}
+/* line 39, ../sass/flexile.scss */
+.flexile-slideshow .flexile-slide-discard {
+  transform: translateX(105%);
 }
 
 /*# sourceMappingURL=flexile.css.map */
