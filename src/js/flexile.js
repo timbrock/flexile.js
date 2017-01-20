@@ -2,22 +2,50 @@ $(document).ready(function(){
 	
 	"use strict";
   
-  const flexile = {};
-  
-  flexile.create = function(container, opt){
-    let $slideshow = $(container).addClass("flexile-slideshow");
-    let $slides = $slideshow.children("section").addClass("flexile-slide");
-    let $screen = $slides.wrapAll("<div></div>").parent().addClass("flexile-screen");
-    let $box = $slides.wrapAll("<div></div>").parent().addClass("flexile-box");
+  const flexile = function(container){
     
-    let nSlides = $slides.length;
+    //Default values		
+		var props = {
+      
+      aspects: [
+        {name: "wide", ratio: 16/9},
+        {name: "monitor", ratio: 16/10},
+        {name: "traditional", ratio: 4/3},
+        {name: "square", ratio: 1},
+        {name: "cinema", ratio: 2.39}
+      ],
+      
+			transitionClass: "flexile-transition-right",
+      
+      keyMap: (function(){
+        let out = new Map([
+          [65, "aspect"], //a
+          [70, "fullscreen"], //f
+          [84, "theme"], //t
+          [37, "previous"], //left arrow
+          [39, "next"], //right arrow
+          [219, "first"], //[
+          [221, "last"] //]
+        ]);
+
+        for(let i = 0; i < 10; i++){
+          out.set(i + 48, i);
+        }
+
+        return out;
+      })()
+      
+		};
     
-    $slideshow.addClass("flexile-transition-right");
+    
+    let $slideshow, $slides, $screen, $box;
+    let nSlides;
+    
     
     let moveSlide = (function(){
       let stackClass = "flexile-slide-stack";
       let discardClass = "flexile-slide-discard";
-      
+      //return object with functions to change classes that should push slides on or off screen.
       return{
         discard: function($handle){
           $handle.removeClass(stackClass)
@@ -28,9 +56,7 @@ $(document).ready(function(){
             .addClass(stackClass);
         },
       };
-      
     })();
-    
     
     let top = (function(){
       let idx;
@@ -71,58 +97,10 @@ $(document).ready(function(){
       top.set(num);
     };
     
+    
     const isFullscreen = function(){
       return document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
     };
-    
-    const aspect = (function(){
-      let aspects = [
-        {name: "wide-aspect", ratio: 16/9},
-        {name: "monitor-aspect", ratio: 16/10},
-        {name: "classic-aspect", ratio: 4/3},
-        {name: "square-aspect", ratio: 1}
-      ];
-      
-      let nAspects = aspects.length;
-      let current = 0;
-      
-      let next = function(change = 0){
-        let chosen = aspects[current];
-        
-        if(change){
-          $slideshow.removeClass(chosen.name);
-          current = (current + change) % nAspects;
-          chosen = aspects[current];
-          $slideshow.addClass(chosen.name);
-        }
-        
-        //$screen.css("width", "100%");
-          //.css("height", (1/chosen.ratio)*100 + "vw");
-        
-        if(isFullscreen()){
-          $screen.css("height", "100%");
-          let ratio = $(window).width()/$(window).height();
-          if(ratio > chosen.ratio){
-            $box.css("width", chosen.ratio*100 + "vh")
-              .css("height", "100%");
-          } else{
-            $box.css("width", "100%")
-              .css("height", (1/chosen.ratio)*100 + "vw");
-          }
-          
-        } else{
-          $screen.css("height", (1/chosen.ratio)*100 + "vw");
-          $box.css("width", "100%")
-              .css("height", "100%");
-        }
-    
-        return chosen.name;
-      };
-      
-      next(); //initialise
-      return next;
-    })();
-    
     
     const fullscreen = function(){
       let screen = $screen[0];
@@ -137,7 +115,69 @@ $(document).ready(function(){
       }
     };
     
-    $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', function(event){
+    
+    let build = function(){
+      
+      $slideshow = $(container).addClass("flexile-slideshow");
+      $slides = $slideshow.children("section").addClass("flexile-slide");
+      $screen = $slides.wrapAll("<div></div>").parent().addClass("flexile-screen");
+      $box = $slides.wrapAll("<div></div>").parent().addClass("flexile-box");
+    
+      nSlides = $slides.length;
+      
+      $slides.each(function(index, slide){
+        let $slide = $(slide);
+        $slide.css("z-index", nSlides - index)
+          .children().wrapAll("<div></div>").parent().addClass("flexile-slide-content");
+        moveSlide.replace($slide);
+      });
+      
+      top.set(0);
+      
+      $slideshow.addClass(props.transitionClass);
+      
+      const aspect = (function(){
+        
+        let aspects = props.aspects;
+        let nAspects = aspects.length;
+        let current = 0;
+
+        let next = function(change = 0){
+          let chosen = aspects[current];
+
+          if(change){
+            $slideshow.removeClass(chosen.name);
+            current = (current + change) % nAspects;
+            chosen = aspects[current];
+            $slideshow.addClass(chosen.name);
+          }
+
+          if(isFullscreen()){
+            $screen.css("height", "100%");
+            let ratio = $(window).width()/$(window).height();
+            if(ratio > chosen.ratio){
+              $box.css("width", chosen.ratio*100 + "vh")
+                .css("height", "100%");
+            } else{
+              $box.css("width", "100%")
+                .css("height", (1/chosen.ratio)*100 + "vw");
+            }
+
+          } else{
+            $screen.css("height", (1/chosen.ratio)*100 + "vw");
+            $box.css("width", "100%")
+                .css("height", "100%");
+          }
+
+          return chosen.name;
+        };
+
+        next(); //initialise
+        return next;
+      })();
+      
+      
+      $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', function(event){
         let fsClass = "flexile-fullscreen";
         if(isFullscreen()){
           $screen.addClass(fsClass);
@@ -145,95 +185,84 @@ $(document).ready(function(){
           $screen.removeClass(fsClass);
         }
         aspect();
-    });
-    
-    
-    const keyMap = (function(){
-      let out = new Map([
-        [65, "aspect"], //a
-        [70, "fullscreen"], //f
-        [84, "theme"], //t
-        [37, "previous"], //left arrow
-        [39, "next"], //right arrow
-        [219, "first"], //[
-        [221, "last"] //]
-      ]);
-    
-      for(let i = 0; i < 10; i++){
-        out.set(i + 48, i);
-      }
-      
-      return out;
-    })();
-    
-    
-    $slides.each(function(index, slide){
-      let $slide = $(slide);
-      $slide.css("z-index", nSlides - index)
-        .children().wrapAll("<div></div>").parent().addClass("flexile-slide-content");
-      moveSlide.replace($slide);
-    });
-    
-    top.set(0);
-    
-    
-    $(document).keydown(function(event){
-      
-      //Assume they're trying to do something else if modifier key is pressed
-      if(event.altKey || event.ctrlKey || event.metaKey || event.shiftKey){return;}
-      
-      let code = keyMap.get(event.keyCode);
-      //debugger;
-      //If no mapping defined then just exit
-      if(code === undefined){return;}
-      
-      //If key is mapped then stop event going any further
-      event.preventDefault();
-      
-      if(code === "aspect"){
-        aspect(1);
-        return;
-      }
-      
-      if(code === "fullscreen"){
-        fullscreen();
-        return;
-      }      
-      
-      if(code === "theme"){
-        //doTheme();
-        return;
-      }    
+      });
       
       
-      if(["previous", "next", "first", "last"].indexOf(code) !== -1 || Number.isFinite(code)){
-        let newSlide;
-        switch(code){
-          case "previous":
-            newSlide = top.index() - 1;
-            break;
-          case "next":
-            newSlide = top.index() + 1;
-            break;
-          case "first":
-            newSlide = 0;
-            break;
-          case "last":
-            newSlide = nSlides -1;
-            break;
-          default:
-            newSlide = code;
-            break;
+      $(document).keydown(function(event){
+      
+        //Assume they're trying to do something else if modifier key is pressed
+        if(event.altKey || event.ctrlKey || event.metaKey || event.shiftKey){return;}
+
+        let code = props.keyMap.get(event.keyCode);
+        //debugger;
+        //If no mapping defined then just exit
+        if(code === undefined){return;}
+
+        //If key is mapped then stop event going any further
+        event.preventDefault();
+
+        if(code === "aspect"){
+          aspect(1);
+          return;
         }
-        changeSlide(newSlide);
-        return;
-      }
+
+        if(code === "fullscreen"){
+          fullscreen();
+          return;
+        }      
+
+        if(code === "theme"){
+          //doTheme();
+          return;
+        }
+
+
+        if(["previous", "next", "first", "last"].indexOf(code) !== -1 || Number.isFinite(code)){
+          let newSlide;
+          switch(code){
+            case "previous":
+              newSlide = top.index() - 1;
+              break;
+            case "next":
+              newSlide = top.index() + 1;
+              break;
+            case "first":
+              newSlide = 0;
+              break;
+            case "last":
+              newSlide = nSlides -1;
+              break;
+            default:
+              newSlide = code;
+              break;
+          }
+          changeSlide(newSlide);
+          return;
+        }
+
+      });
       
-      
-    });
+    };
+    
+    build.setTransition = function(name){
+      props.transitionClass = "flexile-transition-" + name;
+      return this;
+    };
+    
+    build.setKey = function(pair){
+      props.keyMap.set(pair[0], pair[1]);
+      return this;
+    };
+    
+    return build;
     
   };
   
+  let thing = flexile("#presentation")
+    .setKey([37, "next"])
+    .setKey([39, "previous"])
+    .setTransition("left")
+    ();
   
-  flexile.create("#presentation");
+  
 });

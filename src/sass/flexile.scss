@@ -20,7 +20,7 @@
 		/*height: 56.25vw;*/
 		top: 0px;
     &.flexile-fullscreen{
-      background: "black";
+      background: black;
     }
   }
   
@@ -39,7 +39,6 @@
 		position: absolute;
 		overflow: hidden;
     transition-duration: 1s;    
-    box-sizing: padding-box;
     .flexile-slide-content > *{
       display: block;
       position: absolute;
@@ -79,10 +78,16 @@
       display: none;
     }
   }
+  
+  &.flexile-transition-fade{
+    .flexile-slide-discard{
+      opacity: 0;
+    }
+  }
 
   .flexile-slide-content{
     position: relative;
-    /*border: 1px solid black;*/
+    border: 1px solid black;
     width: 90%;
     height: 90%;
     @include place-centre(); 
