@@ -10,13 +10,17 @@
 }
 /* line 10, ../sass/flexile.scss */
 .flexile-slideshow .flexile-screen {
-  background-color: #000000;
+  background: "none";
   position: relative;
   width: 100%;
   /*height: 56.25vw;*/
   top: 0px;
 }
-/* line 20, ../sass/flexile.scss */
+/* line 16, ../sass/flexile.scss */
+.flexile-slideshow .flexile-screen.flexile-fullscreen {
+  background: black;
+}
+/* line 23, ../sass/flexile.scss */
 .flexile-slideshow .flexile-box {
   position: absolute;
   overflow: hidden;
@@ -26,7 +30,7 @@
   top: 50%;
   transform: translate(-50%, -50%);
 }
-/* line 30, ../sass/flexile.scss */
+/* line 33, ../sass/flexile.scss */
 .flexile-slideshow .flexile-slide {
   width: 100%;
   height: 100%;
@@ -35,7 +39,7 @@
   overflow: hidden;
   transition-duration: 1s;
 }
-/* line 39, ../sass/flexile.scss */
+/* line 42, ../sass/flexile.scss */
 .flexile-slideshow .flexile-slide-discard {
   transform: translateX(105%);
 }

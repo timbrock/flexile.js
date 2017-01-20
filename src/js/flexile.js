@@ -138,6 +138,12 @@ $(document).ready(function(){
     };
     
     $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', function(event){
+        let fsClass = "flexile-fullscreen";
+        if(isFullscreen()){
+          $screen.addClass(fsClass);
+        } else{
+          $screen.removeClass(fsClass);
+        }
         aspect();
     });
     

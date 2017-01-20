@@ -8,11 +8,14 @@
   -webkit-text-size-adjust: none;
 
 	.flexile-screen{
-    background-color: #000000;
+    background: "none";
 		position: relative;
 		width: 100%;
 		/*height: 56.25vw;*/
 		top: 0px;
+    &.flexile-fullscreen{
+      background: "black";
+    }
   }
   
   $trans-time: 1s;
