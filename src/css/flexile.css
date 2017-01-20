@@ -1,4 +1,4 @@
-/* line 1, ../sass/flexile.scss */
+/* line 7, ../sass/flexile.scss */
 .flexile-slideshow {
   width: 100%;
   margin-left: auto;
@@ -8,7 +8,7 @@
   overflow: hidden;
   -webkit-text-size-adjust: none;
 }
-/* line 10, ../sass/flexile.scss */
+/* line 16, ../sass/flexile.scss */
 .flexile-slideshow .flexile-screen {
   background: "none";
   position: relative;
@@ -16,11 +16,11 @@
   /*height: 56.25vw;*/
   top: 0px;
 }
-/* line 16, ../sass/flexile.scss */
+/* line 22, ../sass/flexile.scss */
 .flexile-slideshow .flexile-screen.flexile-fullscreen {
-  background: black;
+  background: "black";
 }
-/* line 23, ../sass/flexile.scss */
+/* line 27, ../sass/flexile.scss */
 .flexile-slideshow .flexile-box {
   position: absolute;
   overflow: hidden;
@@ -30,7 +30,7 @@
   top: 50%;
   transform: translate(-50%, -50%);
 }
-/* line 33, ../sass/flexile.scss */
+/* line 35, ../sass/flexile.scss */
 .flexile-slideshow .flexile-slide {
   width: 100%;
   height: 100%;
@@ -38,10 +38,46 @@
   position: absolute;
   overflow: hidden;
   transition-duration: 1s;
+  box-sizing: padding-box;
 }
-/* line 42, ../sass/flexile.scss */
+/* line 43, ../sass/flexile.scss */
+.flexile-slideshow .flexile-slide .flexile-slide-content > * {
+  display: block;
+  position: absolute;
+}
+/* line 49, ../sass/flexile.scss */
 .flexile-slideshow .flexile-slide-discard {
+  pointer-events: none;
+}
+/* line 54, ../sass/flexile.scss */
+.flexile-slideshow.flexile-transition-right .flexile-slide-discard {
   transform: translateX(105%);
+}
+/* line 60, ../sass/flexile.scss */
+.flexile-slideshow.flexile-transition-left .flexile-slide-discard {
+  transform: translateX(-105%);
+}
+/* line 66, ../sass/flexile.scss */
+.flexile-slideshow.flexile-transition-down .flexile-slide-discard {
+  transform: translateY(105%);
+}
+/* line 72, ../sass/flexile.scss */
+.flexile-slideshow.flexile-transition-up .flexile-slide-discard {
+  transform: translateY(-105%);
+}
+/* line 78, ../sass/flexile.scss */
+.flexile-slideshow.flexile-transition-disappear .flexile-slide-discard {
+  display: none;
+}
+/* line 83, ../sass/flexile.scss */
+.flexile-slideshow .flexile-slide-content {
+  position: relative;
+  /*border: 1px solid black;*/
+  width: 90%;
+  height: 90%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /*# sourceMappingURL=flexile.css.map */

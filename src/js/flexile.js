@@ -12,6 +12,8 @@ $(document).ready(function(){
     
     let nSlides = $slides.length;
     
+    $slideshow.addClass("flexile-transition-right");
+    
     let moveSlide = (function(){
       let stackClass = "flexile-slide-stack";
       let discardClass = "flexile-slide-discard";
@@ -113,9 +115,7 @@ $(document).ready(function(){
           $box.css("width", "100%")
               .css("height", "100%");
         }
-        
-        
-        
+    
         return chosen.name;
       };
       
@@ -169,7 +169,8 @@ $(document).ready(function(){
     
     $slides.each(function(index, slide){
       let $slide = $(slide);
-      $slide.css("z-index", nSlides - index);
+      $slide.css("z-index", nSlides - index)
+        .children().wrapAll("<div></div>").parent().addClass("flexile-slide-content");
       moveSlide.replace($slide);
     });
     
