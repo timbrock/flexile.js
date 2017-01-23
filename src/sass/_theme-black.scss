@@ -1,0 +1,19 @@
+@mixin theme-black(){
+  
+  @include standard-font();
+  color: #ffffff;
+  
+  .flexile-screen.flexile-fullscreen{
+    background: white;
+  }
+  
+  .flexile-slide{
+    background-color: #000000;
+  }
+  
+}
+
+
+.flexile-slideshow.flexile-theme-black{
+  @include theme-black();
+}

@@ -1,5 +1,6 @@
-/* line 7, ../sass/flexile.scss */
+/* line 3, ../sass/flexile.scss */
 .flexile-slideshow {
+  /* HTML5 display-role reset for older browsers */
   width: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -8,19 +9,58 @@
   overflow: hidden;
   -webkit-text-size-adjust: none;
 }
-/* line 16, ../sass/flexile.scss */
+/* line 3, ../sass/_helpers.scss */
+.flexile-slideshow div, .flexile-slideshow span, .flexile-slideshow applet, .flexile-slideshow object, .flexile-slideshow iframe,
+.flexile-slideshow h1, .flexile-slideshow h2, .flexile-slideshow h3, .flexile-slideshow h4, .flexile-slideshow h5, .flexile-slideshow h6, .flexile-slideshow p, .flexile-slideshow blockquote, .flexile-slideshow pre,
+.flexile-slideshow a, .flexile-slideshow abbr, .flexile-slideshow acronym, .flexile-slideshow address, .flexile-slideshow big, .flexile-slideshow cite, .flexile-slideshow code,
+.flexile-slideshow del, .flexile-slideshow dfn, .flexile-slideshow em, .flexile-slideshow img, .flexile-slideshow ins, .flexile-slideshow kbd, .flexile-slideshow q, .flexile-slideshow s, .flexile-slideshow samp,
+.flexile-slideshow small, .flexile-slideshow strike, .flexile-slideshow strong, .flexile-slideshow sub, .flexile-slideshow sup, .flexile-slideshow tt, .flexile-slideshow var,
+.flexile-slideshow b, .flexile-slideshow u, .flexile-slideshow i, .flexile-slideshow center,
+.flexile-slideshow dl, .flexile-slideshow dt, .flexile-slideshow dd, .flexile-slideshow ol, .flexile-slideshow ul, .flexile-slideshow li,
+.flexile-slideshow fieldset, .flexile-slideshow form, .flexile-slideshow label, .flexile-slideshow legend,
+.flexile-slideshow table, .flexile-slideshow caption, .flexile-slideshow tbody, .flexile-slideshow tfoot, .flexile-slideshow thead, .flexile-slideshow tr, .flexile-slideshow th, .flexile-slideshow td,
+.flexile-slideshow article, .flexile-slideshow aside, .flexile-slideshow canvas, .flexile-slideshow details, .flexile-slideshow embed,
+.flexile-slideshow figure, .flexile-slideshow figcaption, .flexile-slideshow footer, .flexile-slideshow header, .flexile-slideshow hgroup,
+.flexile-slideshow menu, .flexile-slideshow nav, .flexile-slideshow output, .flexile-slideshow ruby, .flexile-slideshow section, .flexile-slideshow summary,
+.flexile-slideshow time, .flexile-slideshow mark, .flexile-slideshow audio, .flexile-slideshow video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* line 24, ../sass/_helpers.scss */
+.flexile-slideshow article, .flexile-slideshow aside, .flexile-slideshow details, .flexile-slideshow figcaption, .flexile-slideshow figure,
+.flexile-slideshow footer, .flexile-slideshow header, .flexile-slideshow hgroup, .flexile-slideshow menu, .flexile-slideshow nav, .flexile-slideshow section {
+  display: block;
+}
+/* line 28, ../sass/_helpers.scss */
+.flexile-slideshow ol, .flexile-slideshow ul {
+  list-style: none;
+}
+/* line 31, ../sass/_helpers.scss */
+.flexile-slideshow blockquote, .flexile-slideshow q {
+  quotes: none;
+}
+/* line 34, ../sass/_helpers.scss */
+.flexile-slideshow blockquote:before, .flexile-slideshow blockquote:after,
+.flexile-slideshow q:before, .flexile-slideshow q:after {
+  content: '';
+  content: none;
+}
+/* line 39, ../sass/_helpers.scss */
+.flexile-slideshow table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* line 13, ../sass/flexile.scss */
 .flexile-slideshow .flexile-screen {
-  background: "none";
+  background: none;
   position: relative;
   width: 100%;
-  /*height: 56.25vw;*/
-  top: 0px;
 }
-/* line 22, ../sass/flexile.scss */
-.flexile-slideshow .flexile-screen.flexile-fullscreen {
-  background: black;
-}
-/* line 27, ../sass/flexile.scss */
+/* line 19, ../sass/flexile.scss */
 .flexile-slideshow .flexile-box {
   position: absolute;
   overflow: hidden;
@@ -30,49 +70,28 @@
   top: 50%;
   transform: translate(-50%, -50%);
 }
-/* line 35, ../sass/flexile.scss */
+/* line 27, ../sass/flexile.scss */
 .flexile-slideshow .flexile-slide {
   width: 100%;
   height: 100%;
-  background-color: #e5e5e5;
   position: absolute;
   overflow: hidden;
   transition-duration: 1s;
 }
-/* line 42, ../sass/flexile.scss */
+/* line 33, ../sass/flexile.scss */
 .flexile-slideshow .flexile-slide .flexile-slide-content > * {
   display: block;
   position: absolute;
 }
-/* line 48, ../sass/flexile.scss */
+/* line 39, ../sass/flexile.scss */
 .flexile-slideshow .flexile-slide-discard {
   pointer-events: none;
 }
-/* line 53, ../sass/flexile.scss */
-.flexile-slideshow.flexile-transition-right .flexile-slide-discard {
-  transform: translateX(105%);
-}
-/* line 59, ../sass/flexile.scss */
-.flexile-slideshow.flexile-transition-left .flexile-slide-discard {
-  transform: translateX(-105%);
-}
-/* line 65, ../sass/flexile.scss */
-.flexile-slideshow.flexile-transition-down .flexile-slide-discard {
-  transform: translateY(105%);
-}
-/* line 71, ../sass/flexile.scss */
-.flexile-slideshow.flexile-transition-up .flexile-slide-discard {
-  transform: translateY(-105%);
-}
-/* line 77, ../sass/flexile.scss */
-.flexile-slideshow.flexile-transition-disappear .flexile-slide-discard {
+/* line 44, ../sass/flexile.scss */
+.flexile-slideshow .flexile-transition-default.flexile-slide-discard, .flexile-slideshow .flexile-transition-vanish.flexile-slide-discard {
   display: none;
 }
-/* line 83, ../sass/flexile.scss */
-.flexile-slideshow.flexile-transition-fade .flexile-slide-discard {
-  opacity: 0;
-}
-/* line 88, ../sass/flexile.scss */
+/* line 49, ../sass/flexile.scss */
 .flexile-slideshow .flexile-slide-content {
   position: relative;
   border: 1px solid black;
@@ -81,6 +100,155 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+/* line 17, ../sass/_theme-light.scss */
+.flexile-slideshow.flexile-theme-light {
+  font-family: Helvetica, Arial, "sans-serif";
+  font-weight: normal;
+  line-height: 1;
+  color: #333333;
+}
+/* line 6, ../sass/_theme-light.scss */
+.flexile-slideshow.flexile-theme-light .flexile-screen.flexile-fullscreen {
+  background: black;
+}
+/* line 10, ../sass/_theme-light.scss */
+.flexile-slideshow.flexile-theme-light .flexile-slide {
+  background-color: #dddddd;
+}
+
+/* line 17, ../sass/_theme-dark.scss */
+.flexile-slideshow.flexile-theme-dark {
+  font-family: Helvetica, Arial, "sans-serif";
+  font-weight: normal;
+  line-height: 1;
+  color: #dddddd;
+}
+/* line 6, ../sass/_theme-dark.scss */
+.flexile-slideshow.flexile-theme-dark .flexile-screen.flexile-fullscreen {
+  background: white;
+}
+/* line 10, ../sass/_theme-dark.scss */
+.flexile-slideshow.flexile-theme-dark .flexile-slide {
+  background-color: #333333;
+}
+
+/* line 17, ../sass/_theme-white.scss */
+.flexile-slideshow.flexile-theme-white {
+  font-family: Helvetica, Arial, "sans-serif";
+  font-weight: normal;
+  line-height: 1;
+  color: #000000;
+}
+/* line 6, ../sass/_theme-white.scss */
+.flexile-slideshow.flexile-theme-white .flexile-screen.flexile-fullscreen {
+  background: black;
+}
+/* line 10, ../sass/_theme-white.scss */
+.flexile-slideshow.flexile-theme-white .flexile-slide {
+  background-color: #ffffff;
+}
+
+/* line 17, ../sass/_theme-black.scss */
+.flexile-slideshow.flexile-theme-black {
+  font-family: Helvetica, Arial, "sans-serif";
+  font-weight: normal;
+  line-height: 1;
+  color: #ffffff;
+}
+/* line 6, ../sass/_theme-black.scss */
+.flexile-slideshow.flexile-theme-black .flexile-screen.flexile-fullscreen {
+  background: white;
+}
+/* line 10, ../sass/_theme-black.scss */
+.flexile-slideshow.flexile-theme-black .flexile-slide {
+  background-color: #000000;
+}
+
+/* line 3, ../sass/_transitions.scss */
+.flexile-slideshow .flexile-transition-fade {
+  will-change: opacity;
+}
+/* line 5, ../sass/_transitions.scss */
+.flexile-slideshow .flexile-transition-fade.flexile-slide-discard {
+  opacity: 0;
+}
+/* line 10, ../sass/_transitions.scss */
+.flexile-slideshow .flexile-transition-slide-right {
+  will-change: transform;
+}
+/* line 12, ../sass/_transitions.scss */
+.flexile-slideshow .flexile-transition-slide-right.flexile-slide-discard {
+  transform: translateX(105%);
+}
+/* line 17, ../sass/_transitions.scss */
+.flexile-slideshow .flexile-transition-slide-left {
+  will-change: transform;
+}
+/* line 19, ../sass/_transitions.scss */
+.flexile-slideshow .flexile-transition-slide-left.flexile-slide-discard {
+  transform: translateX(-105%);
+}
+/* line 24, ../sass/_transitions.scss */
+.flexile-slideshow .flexile-transition-slide-down {
+  will-change: transform;
+}
+/* line 26, ../sass/_transitions.scss */
+.flexile-slideshow .flexile-transition-slide-down.flexile-slide-discard {
+  transform: translateY(105%);
+}
+/* line 31, ../sass/_transitions.scss */
+.flexile-slideshow .flexile-transition-slide-up {
+  will-change: transform;
+}
+/* line 33, ../sass/_transitions.scss */
+.flexile-slideshow .flexile-transition-slide-up.flexile-slide-discard {
+  transform: translateY(-105%);
+}
+/* line 38, ../sass/_transitions.scss */
+.flexile-slideshow .flexile-transition-shrink {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+/* line 40, ../sass/_transitions.scss */
+.flexile-slideshow .flexile-transition-shrink.flexile-slide-discard {
+  height: 0;
+  width: 0;
+}
+/* line 47, ../sass/_transitions.scss */
+.flexile-slideshow .flexile-transition-squish-1.flexile-slide-discard {
+  width: 0;
+  height: 0;
+}
+/* line 53, ../sass/_transitions.scss */
+.flexile-slideshow .flexile-transition-squish-2 {
+  right: 0;
+}
+/* line 55, ../sass/_transitions.scss */
+.flexile-slideshow .flexile-transition-squish-2.flexile-slide-discard {
+  width: 0;
+  height: 0;
+}
+/* line 61, ../sass/_transitions.scss */
+.flexile-slideshow .flexile-transition-squish-3 {
+  right: 0;
+  bottom: 0;
+}
+/* line 64, ../sass/_transitions.scss */
+.flexile-slideshow .flexile-transition-squish-3.flexile-slide-discard {
+  width: 0;
+  height: 0;
+}
+/* line 70, ../sass/_transitions.scss */
+.flexile-slideshow .flexile-transition-squish-4 {
+  bottom: 0;
+}
+/* line 72, ../sass/_transitions.scss */
+.flexile-slideshow .flexile-transition-squish-4.flexile-slide-discard {
+  width: 0;
+  height: 0;
 }
 
 /*# sourceMappingURL=flexile.css.map */

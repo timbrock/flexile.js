@@ -2,10 +2,10 @@ $(document).ready(function(){
 	
 	"use strict";
   
-  const flexile = function(container){
+  const flexile = function(){
     
     //Default values		
-		var props = {
+		let props = {
       
       aspects: [
         {name: "wide", ratio: 16/9},
@@ -15,7 +15,9 @@ $(document).ready(function(){
         {name: "cinema", ratio: 2.39}
       ],
       
-			transitionClass: "flexile-transition-right",
+			transitionClass: "default",
+      
+      themeClasses: ["light", "dark", "white", "black"],
       
       keyMap: (function(){
         let out = new Map([
@@ -37,13 +39,15 @@ $(document).ready(function(){
       
 		};
     
-    
+    //jQuery selections
     let $slideshow, $slides, $screen, $box;
-    let nSlides;
+    let nSlides; //number of slides
     
+    //move element from front of array to back, bump everything else up one
+    const frontToBack = function(arr){arr.push(arr.shift());};
     
-    let moveSlide = (function(){
-      let stackClass = "flexile-slide-stack";
+    const moveSlide = (function(){
+      let stackClass = "flexile-slide-stack"; //class for slide that is not yet discarded
       let discardClass = "flexile-slide-discard";
       //return object with functions to change classes that should push slides on or off screen.
       return{
@@ -58,10 +62,11 @@ $(document).ready(function(){
       };
     })();
     
-    let top = (function(){
+    //Object for changing and keeping track of which slide is visible on "top" of the screen.
+    const top = (function(){
       let idx;
       let topClass = "flexile-slide-top";
-      const getCurrent = function(){return $($slides[idx]);};
+      const getCurrent = function(){return $($slides[idx]);}; //returns jQuery wrapper of slide on top of stack
       return {
         index: function(){return idx;},
         handle: getCurrent,
@@ -75,7 +80,7 @@ $(document).ready(function(){
       };
     })();
     
-    
+    //Checks if number corresponds to a real slide before moving slides that require moving on to or off stack
     const changeSlide = function(num){
       let current = top.index();
       if((num < 0) || (num >= nSlides) || (num === current)){return;}
@@ -97,11 +102,22 @@ $(document).ready(function(){
       top.set(num);
     };
     
+    //Change theme to whatever is currently first in themeClasses property
+    const theme = function(){
+      let classes = $slideshow.attr("class");
+      let themeReg = /\bflexile-theme-\S+/;
+      (classes.match(themeReg) || []).forEach(function(themeClass){
+        $slideshow.removeClass(themeClass);
+      });
+      $slideshow.addClass("flexile-theme-" + props.themeClasses[0]);
+    };
     
+    //Helper function to check whether currently in fullscreen mode
     const isFullscreen = function(){
       return document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
     };
     
+    //Function that actually implements transition to fullscreen mode (if available)
     const fullscreen = function(){
       let screen = $screen[0];
       if(screen.requestFullscreen){
@@ -115,8 +131,8 @@ $(document).ready(function(){
       }
     };
     
-    
-    let build = function(){
+    //Principal function for creating the presentation.
+    const build = function(container){
       
       $slideshow = $(container).addClass("flexile-slideshow");
       $slides = $slideshow.children("section").addClass("flexile-slide");
@@ -124,17 +140,28 @@ $(document).ready(function(){
       $box = $slides.wrapAll("<div></div>").parent().addClass("flexile-box");
     
       nSlides = $slides.length;
+      theme();
       
-      $slides.each(function(index, slide){
-        let $slide = $(slide);
-        $slide.css("z-index", nSlides - index)
-          .children().wrapAll("<div></div>").parent().addClass("flexile-slide-content");
-        moveSlide.replace($slide);
-      });
+      {
+        let transReg = /\bflexile-transition-\S+/;
+      
+        $slides.each(function(index, slide){
+          let $slide = $(slide);
+
+          $slide.css("z-index", nSlides - index)
+            .children().wrapAll("<div></div>").parent().addClass("flexile-slide-content");
+
+          if($slide.attr("class").search(transReg) === -1){
+            $slide.addClass("flexile-transition-" + props.transitionClass);
+          }
+
+          moveSlide.replace($slide);
+        });      
+      }
       
       top.set(0);
       
-      $slideshow.addClass(props.transitionClass);
+      //$slideshow.addClass(props.transitionClass);
       
       const aspect = (function(){
         
@@ -212,7 +239,8 @@ $(document).ready(function(){
         }      
 
         if(code === "theme"){
-          //doTheme();
+          frontToBack(props.themeClasses);
+          theme();
           return;
         }
 
@@ -245,7 +273,7 @@ $(document).ready(function(){
     };
     
     build.setTransition = function(name){
-      props.transitionClass = "flexile-transition-" + name;
+      props.transitionClass = name;
       return this;
     };
     
@@ -258,11 +286,11 @@ $(document).ready(function(){
     
   };
   
-  let thing = flexile("#presentation")
-    .setKey([37, "next"])
-    .setKey([39, "previous"])
-    .setTransition("left")
-    ();
+  let thing = flexile()
+    /*.setKey([37, "next"])
+    .setKey([39, "previous"])*/
+    .setTransition("shrink")
+    ("#presentation");
   
   
 });

@@ -1,10 +1,7 @@
-@mixin place-centre(){
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%); 
-}
+@import "helpers";
 
 .flexile-slideshow{
+  @include reset();
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
@@ -12,16 +9,11 @@
 	position: relative;
   overflow: hidden;
   -webkit-text-size-adjust: none;
-
+  
 	.flexile-screen{
-    background: "none";
+    background: none;
 		position: relative;
 		width: 100%;
-		/*height: 56.25vw;*/
-		top: 0px;
-    &.flexile-fullscreen{
-      background: black;
-    }
   }
   
   .flexile-box{
@@ -35,7 +27,6 @@
   .flexile-slide{
 		width: 100%;
 		height: 100%;
-    background-color: #e5e5e5;
 		position: absolute;
 		overflow: hidden;
     transition-duration: 1s;    
@@ -49,42 +40,12 @@
     pointer-events: none;
   }
   
-  &.flexile-transition-right{
-    .flexile-slide-discard{
-      transform: translateX(105%);
-    }
-  }
-  
-  &.flexile-transition-left{
-    .flexile-slide-discard{
-      transform: translateX(-105%);
-    }
-  }
-  
-  &.flexile-transition-down{
-    .flexile-slide-discard{
-      transform: translateY(105%);
-    }
-  }
-  
-  &.flexile-transition-up{
-    .flexile-slide-discard{
-      transform: translateY(-105%);
-    }
-  }
-  
-  &.flexile-transition-disappear{
-    .flexile-slide-discard{
+  .flexile-transition-default, .flexile-transition-vanish{  
+    &.flexile-slide-discard{
       display: none;
     }
-  }
+  }  
   
-  &.flexile-transition-fade{
-    .flexile-slide-discard{
-      opacity: 0;
-    }
-  }
-
   .flexile-slide-content{
     position: relative;
     border: 1px solid black;
@@ -92,5 +53,12 @@
     height: 90%;
     @include place-centre(); 
   }
-
+  
 }
+
+@import "theme-light";
+@import "theme-dark";
+@import "theme-white";
+@import "theme-black";
+
+@import "transitions";
