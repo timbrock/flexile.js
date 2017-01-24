@@ -12,7 +12,9 @@ $(document).ready(function(){
         {name: "monitor", ratio: 16/10},
         {name: "traditional", ratio: 4/3},
         {name: "square", ratio: 1},
-        {name: "cinema", ratio: 2.39}
+        {name: "cinema", ratio: 2.39},
+        {name: "a4-portrait", ratio: 210/297},
+        {name: "a4-landscape", ratio: 297/210}
       ],
       
 			transitionClass: "default",
@@ -53,10 +55,12 @@ $(document).ready(function(){
       return{
         discard: function($handle){
           $handle.removeClass(stackClass)
+            .addClass("flexile-animate-transition")
             .addClass(discardClass);
         },
         replace: function($handle){
           $handle.removeClass(discardClass)
+            .addClass("flexile-animate-transition")
             .addClass(stackClass);
         },
       };
@@ -110,6 +114,7 @@ $(document).ready(function(){
         $slideshow.removeClass(themeClass);
       });
       $slideshow.addClass("flexile-theme-" + props.themeClasses[0]);
+      fontSize();
     };
     
     //Helper function to check whether currently in fullscreen mode
@@ -130,6 +135,16 @@ $(document).ready(function(){
         screen.msRequestFullscreen();
       }
     };
+    
+    //Set fontsize based on current width of box
+    const fontSize = function(){
+      let baseSize = parseFloat($slideshow.css("font-size"));
+      let newSize = ($box.width()/1000)*baseSize;
+      console.log(props.aspects[0], $box.width());
+      $box.css("font-size", newSize);
+    };
+    
+    $(window).on("resize", function(){fontSize();});
     
     //Principal function for creating the presentation.
     const build = function(container){
@@ -173,10 +188,11 @@ $(document).ready(function(){
           let chosen = aspects[current];
 
           if(change){
-            $slideshow.removeClass(chosen.name);
+            $slideshow.removeClass("flexile-aspect-" + chosen.name);
             current = (current + change) % nAspects;
             chosen = aspects[current];
-            $slideshow.addClass(chosen.name);
+            $slideshow.addClass("flexile-aspect-" + chosen.name);
+            fontSize();
           }
 
           if(isFullscreen()){
@@ -203,6 +219,9 @@ $(document).ready(function(){
         return next;
       })();
       
+      $slides.on('transitionend oTransitionEnd transitionend webkitTransitionEnd', function(event){
+        $(this).removeClass("flexile-animate-transition");
+      });
       
       $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', function(event){
         let fsClass = "flexile-fullscreen";

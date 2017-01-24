@@ -1,6 +1,6 @@
-@mixin theme-white(){
+.flexile-slideshow.flexile-theme-white{
   
-  @include standard-font();
+  @include theme-base();
   color: #000000;
   
   .flexile-screen.flexile-fullscreen{
@@ -11,9 +11,4 @@
     background-color: #ffffff;
   }
   
-}
-
-
-.flexile-slideshow.flexile-theme-white{
-  @include theme-white();
 }

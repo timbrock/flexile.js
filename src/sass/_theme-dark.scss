@@ -1,6 +1,6 @@
-@mixin theme-dark(){
+.flexile-slideshow.flexile-theme-dark{
   
-  @include standard-font();
+  @include theme-base();
   color: #dddddd;
   
   .flexile-screen.flexile-fullscreen{
@@ -11,9 +11,4 @@
     background-color: #333333;
   }
   
-}
-
-
-.flexile-slideshow.flexile-theme-dark{
-  @include theme-dark();
 }

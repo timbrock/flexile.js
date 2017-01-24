@@ -1,0 +1,44 @@
+//Linear fit to relate size of margins provided by context box sizing to aspect ratio
+//Value used based ourely on what I thought looked ok.
+@mixin size-container($view){
+  $min-size: 93%; //Minimum size of larger dimension
+  $max-size: 97%; //Maximum size of larger dimension
+  $lower-limit: 1; //Aspect ratio less than 1 gets inverted
+  $upper-limit: 2.4; //Aspect ratio bigger than this just takes $max-size for larger dimension 
+  $aspect-ratio: map-get($view, aspect-ratio);
+  $aspect: aspect-magnitude($aspect-ratio);
+  $value: 0;
+  @if $aspect > $upper-limit{
+    $value: $max-size;
+  } @else{ //Linear fit
+    $range-size: $max-size - $min-size;
+    $range-limit: $upper-limit - $lower-limit;
+    $gradient: ($range-size/$range-limit);
+    $value: $min-size + (($aspect - $lower-limit) * $gradient);
+  }
+  @if $aspect-ratio > 1{ //width > height
+    @include set-content-on-width($view, $value);
+  } @else{
+    @include set-content-on-height($view, $value);
+  }
+}
+
+
+@mixin theme-base(){
+  
+  //Basic font settings
+  font-size: 40px; //flexile.js will take this and resize based on width.
+  font-family: Helvetica, Arial, "sans-serif";
+  font-weight: normal;
+  line-height: 1;
+  
+  //Set the width of the inner content container
+  @include size-container($wide); 
+  @include size-container($monitor);
+  @include size-container($traditional);
+  @include size-container($square);
+  @include size-container($cinema);
+  @include size-container($a4-portrait);
+  @include size-container($a4-landscape);
+  
+}

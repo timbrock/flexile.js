@@ -29,7 +29,9 @@
 		height: 100%;
 		position: absolute;
 		overflow: hidden;
-    transition-duration: 1s;    
+    &.flexile-animate-transition{
+      transition-duration: 1s;
+    }
     .flexile-slide-content > *{
       display: block;
       position: absolute;
@@ -37,6 +39,7 @@
   }
   
   .flexile-slide-discard{
+    transition-duration: 1s;
     pointer-events: none;
   }
   
@@ -49,13 +52,13 @@
   .flexile-slide-content{
     position: relative;
     border: 1px solid black;
-    width: 90%;
-    height: 90%;
-    @include place-centre(); 
+    @include place-centre();
   }
   
 }
 
+@import "aspects";
+@import "theme-base-rules";
 @import "theme-light";
 @import "theme-dark";
 @import "theme-white";
