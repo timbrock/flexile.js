@@ -308,7 +308,7 @@ $(document).ready(function(){
   let thing = flexile()
     /*.setKey([37, "next"])
     .setKey([39, "previous"])*/
-    .setTransition("shrink")
+    .setTransition("spin-360a")
     ("#presentation");
   
   

@@ -7,13 +7,7 @@
     }
   }
   
-  .flexile-transition-slide-right{
-    will-change: transform;
-    &.flexile-slide-discard{
-      transform: translateX(105%);
-    }
-  }
-    
+  
   .flexile-transition-slide-left{
     will-change: transform;
     &.flexile-slide-discard{
@@ -21,6 +15,20 @@
     }
   }
   
+  .flexile-transition-slide-up{
+    will-change: transform;
+    &.flexile-slide-discard{
+      transform: translateY(-105%);
+    }
+  }  
+  
+  .flexile-transition-slide-right{
+    will-change: transform;
+    &.flexile-slide-discard{
+      transform: translateX(105%);
+    }
+  }
+
   .flexile-transition-slide-down{
     will-change: transform;
     &.flexile-slide-discard{
@@ -28,52 +36,64 @@
     }
   }
     
-  .flexile-transition-slide-up{
-    will-change: transform;
-    &.flexile-slide-discard{
-      transform: translateY(-105%);
-    }
-  }
-  
-  .flexile-transition-shrink{
-    @include place-centre();
-    &.flexile-slide-discard{
-      height: 0;
-      width: 0;
-    }
-  }
-  
-  .flexile-transition-squish-1{
-    &.flexile-slide-discard{
-      width: 0;
-      height: 0;
-    }
-  }
-  
-  .flexile-transition-squish-2{
-    right: 0;
-    &.flexile-slide-discard{
-      width: 0;
-      height: 0;
-    }
-  }
-  
-  .flexile-transition-squish-3{
-    right: 0;
-    bottom: 0;
-    &.flexile-slide-discard{
-      width: 0;
-      height: 0;
-    }
-  }
-  
-  .flexile-transition-squish-4{
-    bottom: 0;
-    &.flexile-slide-discard{
-      width: 0;
-      height: 0;
-    }
-  }
 
+  .flexile-transition-compress-left{
+    will-change: transform;
+    transform-origin: 0% 0%;
+    transform: scale(1);
+    &.flexile-slide-discard{
+      transform: scale(0, 1);
+    }
+  }
+  
+  .flexile-transition-compress-up{
+    will-change: transform;
+    transform-origin: 0% 0%;
+    transform: scale(1);
+    &.flexile-slide-discard{
+      transform: scale(1, 0);
+    }
+  }
+  
+  .flexile-transition-compress-right{
+    will-change: transform;
+    transform-origin: 100% 100%;
+    transform: scale(1);
+    &.flexile-slide-discard{
+      transform: scale(0, 1);
+    }
+  }
+  
+  .flexile-transition-compress-down{
+    will-change: transform;
+    transform-origin: 0% 100%;
+    transform: scale(1);
+    &.flexile-slide-discard{
+      transform: scale(1, 0);
+    }
+  }
+  
+  
+  @include squash(shrink, 50%, 50%);
+  @include squash(squash-1, 0%, 0%);
+  @include squash(squash-2, 100%, 0%);
+  @include squash(squash-3, 100%, 100%);
+  @include squash(squash-4, 0%, 100%);
+  
+  @include rotate-clockwise(rotate-1, 0%, 0%);
+  @include rotate-clockwise(rotate-2, 100%, 0%);
+  @include rotate-clockwise(rotate-3, 100%, 100%);
+  @include rotate-clockwise(rotate-4, 0%, 100%);
+  @include rotate-anti-clockwise(rotate-1a, 0%, 0%);
+  @include rotate-anti-clockwise(rotate-2a, 100%, 0%);
+  @include rotate-anti-clockwise(rotate-3a, 100%, 100%);
+  @include rotate-anti-clockwise(rotate-4a, 0%, 100%);
+  
+  @include spin-clockwise(spin-360, 360);
+  @include spin-clockwise(spin-720, 720);
+  @include spin-clockwise(spin-1080, 1080);
+  @include spin-anti-clockwise(spin-360a, 360);
+  @include spin-anti-clockwise(spin-720a, 720);
+  @include spin-anti-clockwise(spin-1080a, 1080);
   
 }
