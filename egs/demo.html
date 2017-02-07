@@ -31,6 +31,10 @@
     <p data-a="yes">1</p>
   </section>
 	
+  <section class="flexile-static-layer">	
+		<p>Yo, mr</p>
+  </section>
+  
   <section>	
 		<p>2</p>
   </section>
@@ -55,7 +59,7 @@
 let config = flexile.config()
   .addAspects([flexile.helpers.aspects.monitor, flexile.helpers.aspects.traditional])
   .addThemes(["dark", "white", "black"])
-  .addTransitions("slide-right")
+  .addTransitions("slide-top-bottom")
   .addKeys(flexile.helpers.keys.lrpn)
   .addKeys(flexile.helpers.keys.numbers0)
   .addKeys([{code: 219, value: "first"}, {code: 221, value: "last"}])

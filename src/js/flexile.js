@@ -53,7 +53,7 @@ let flexile = (function(){
     let $elout;
     
     const isNode = function(node){
-      return !!node.nodeName;
+      return node ? !!node.nodeName : false;
     };
     
     const isNodeList = function(nodes){
@@ -252,7 +252,7 @@ let flexile = (function(){
 
       let $election;
 
-       if(selector === window || selector === document){ //window or document
+      if(selector === window || selector === document){ //window or document
         $election = [selector];
         $election.on = on.bind([selector]);
         $election.off = off.bind([selector]);
@@ -383,30 +383,22 @@ let flexile = (function(){
       }
       return valid;
     };
-  
-    const isValueType = (function(){
-      let valueTypes = ["string", "number", "boolean", "undefined", "null"];
-      return function(item){
-        let type = (item !== null) ? typeof item : "null";
-        return valueTypes.includes(type);
-      };
-    })();
       
-    const valueCloneObj = function(obj){
+    const cloneObj = function(obj){
       let out = {};
       if(!isObject(obj)){return undefined;}
       Object.keys(obj).forEach(function(key){
-        out[key] = isValueType(obj[key]) ? obj[key] : undefined;
+        out[key] = obj[key];
       });
       return out;
     };
     
-    const valueCloneObjArray = function(arr){
+    const cloneObjArray = function(arr){
       let out = [];
       if(!isArray(arr)){return undefined;}
       for(let obj of arr){
         if(!isObject(obj)){return undefined;}
-        out.push(valueCloneObj(obj));
+        out.push(cloneObj(obj));
       }
       return out;
     };
@@ -468,12 +460,12 @@ let flexile = (function(){
         if(valid !== false){
           if(add){
             items.forEach(function(item){
-              arr.push(valueCloneObj(item));
+              arr.push(cloneObj(item));
             });
           } else{
             arr.length = items.length;
             items.forEach(function(item, index){
-              arr[index] = valueCloneObj(item);
+              arr[index] = cloneObj(item);
             });
           }
         }
@@ -493,28 +485,25 @@ let flexile = (function(){
 
         if(nStart && items !== undefined){
         
-          if(isValueType(items)){
+          if(!isArray(items)){
             items = [items];
           }
-          
-          if(isArray(items)){
-            
-            let isMatch = function(a, b){
-              return b.hasOwnProperty(prop) && a === b[prop];
-            };
-            
-            for(let item of items){
-              let index = 0;
-              while(index < arr.length){
-                if(isMatch(item, arr[index])){
-                  arr.splice(index, 1);                 
-                  removed++;
-                } else{
-                  index++;
-                }
+                      
+          let isMatch = function(a, b){
+            return b.hasOwnProperty(prop) && a === b[prop];
+          };
+
+          for(let item of items){
+            let index = 0;
+            while(index < arr.length){
+              if(isMatch(item, arr[index])){
+                arr.splice(index, 1);                 
+                removed++;
+              } else{
+                index++;
               }
-              if(arr.length === 0){break;}
             }
+            if(arr.length === 0){break;}
           }
           
         }
@@ -531,7 +520,7 @@ let flexile = (function(){
         add: changeItems(themes, isClassSuffixObject, "name", true),
         remove: removeItems(themes, "name"),
         errors: function(){return !themes.length;},
-        getClone: function(){return valueCloneObjArray(themes);}
+        getClone: function(){return cloneObjArray(themes);}
       };
     })();
     
@@ -542,7 +531,7 @@ let flexile = (function(){
         add: changeItems(transitions, isClassSuffixObject, "name", true),
         remove: removeItems(transitions, "name"),
         errors: function(){return !transitions.length;},
-        getClone: function(){return valueCloneObjArray(transitions);}
+        getClone: function(){return cloneObjArray(transitions);}
       };
     })();
     
@@ -553,7 +542,7 @@ let flexile = (function(){
         add: changeItems(aspects, isAspectObject, "", true),
         remove: removeItems(aspects, "name"),
         errors: function(){return !aspects.length;},
-        getClone: function(){return valueCloneObjArray(aspects);}
+        getClone: function(){return cloneObjArray(aspects);}
       };
     })();
     
@@ -564,7 +553,7 @@ let flexile = (function(){
         add: changeItems(keys, isKeyObject, "", true),
         remove: removeItems(keys, "code"),
         errors: function(){return false;},
-        getClone: function(){return valueCloneObjArray(keys);}
+        getClone: function(){return cloneObjArray(keys);}
       };
     })();
     
@@ -615,25 +604,36 @@ let flexile = (function(){
     
     
     let $slideshow = $el(container).addClass("flexile-slideshow");
-    let $slides = $slideshow.children("section").addClass("flexile-slide");
     let $screen = $slideshow.wrapChildren("div", "flexile-screen");
     let $box = $screen.wrapChildren("div", "flexile-box");
     let $window = $el(window);
     let $document = $el(document);
+     
+    
+    let $slides = (function(){
+      let $layers = $box.children("section");
+      let nLayers = $layers.length; 
+      let out = $el();
+      $layers.forEach(function(layer, index){
+        let $layer = $el(layer);
+        $layer.css("z-index", nLayers - index);
+        if(!$layer.hasClass("flexile-static-layer")){
+          $layer.addClass("flexile-slide")
+            .wrapChildren("div", "flexile-slide-content");
+          out.push(layer);
+        }
+      });
+      return out;
+    })();
+                    
     let nSlides = $slides.length;
     
     
-    $slides.forEach(function(el, index){
-      $el(el).css("z-index", nSlides - index)
-        .wrapChildren("div", "flexile-slide-content");
-    });
-    
+    const isFullscreen = function(){
+      return document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
+    };
     
     const update = (function(){
-      
-      const isFullscreen = function(){
-        return document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
-      };
       
       const updateAspectRatio = function(){
         let aspect = aspects.get().aspect;
@@ -697,15 +697,28 @@ let flexile = (function(){
       let storeIndex = 0;
       const n = store.length;
       
-      const currentName = (function(){
-        let func;
+      let currentName, getIndex;
+      
+      (function(){
         if(isString(store[storeIndex])){
-          func = function(){return store[storeIndex];};
+          currentName = function(){return store[storeIndex];};
+          getIndex = function(value){return store.indexOf(value);};
         } else{
-          func = function(){return store[storeIndex].name;};
+          let keyProp = properties[0];
+          currentName = function(){return store[storeIndex][keyProp];};
+          getIndex = function(value){
+            let out = -1;
+            for(let [index, stored] of store.entries()){
+              if(stored[keyProp] === value){
+                out = index;
+                break;
+              }
+            }
+            return out;
+          };
         }
-        return func;
       })();
+      
       
       changeFunc(currentName());
       
@@ -716,17 +729,19 @@ let flexile = (function(){
           let change = false;
           if(n > 1){
             if(value !== undefined){
-              let index = store.indexOf(value);
+              let index = getIndex(value);
               if(index !== -1){
                 storeIndex = index;
-                change = value;
+                change = store[storeIndex];
               }
             } else{
                 storeIndex = (storeIndex + 1) % n;
                 change = store[storeIndex];
             }
-            changeFunc(currentName());
-            update();
+            if(change){
+              changeFunc(currentName());
+              update(); 
+            }  
           }
           return change;
         },
@@ -820,7 +835,7 @@ let flexile = (function(){
     //Checks if number corresponds to a real slide before moving slides that require moving on to or off stack
     const changeSlide = function(num){
       let current = top.index;
-      if((num < 0) || (num >= nSlides) || (num === current)){return;}
+      if((num < 0) || (num >= nSlides) || (num === current)){return false;}
 
       if(num > current){
         let first = current;
@@ -837,89 +852,151 @@ let flexile = (function(){
       }
       
       top.index = num;
+      
+      return true;
     };
     
     //Function that actually implements transition to fullscreen mode (if available)
-    const fullscreen = function(){
+    const fullscreen = (function(){
       let screen = $screen[0];
-      if(screen.requestFullscreen){
-        screen.requestFullscreen();
-      } else if (screen.webkitRequestFullscreen){
-        screen.webkitRequestFullscreen();
-      } else if (screen.mozRequestFullScreen){
-        screen.mozRequestFullScreen();
-      } else if (screen.msRequestFullscreen){
-        screen.msRequestFullscreen();
-      }
-    };
+      
+      const onFunc = function(){
+        if(screen.requestFullscreen){
+          screen.requestFullscreen();
+        } else if (screen.webkitRequestFullscreen){
+          screen.webkitRequestFullscreen();
+        } else if (screen.mozRequestFullScreen){
+          screen.mozRequestFullScreen();
+        } else if (screen.msRequestFullscreen){
+          screen.msRequestFullscreen();
+        }
+      };
+      
+      const offFunc = function(){
+        if (document.exitFullscreen){
+            document.exitFullscreen();
+        } else if(document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if(document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if(document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+      };
+        
+      return{
+        on: function(){if(!isFullscreen()){onFunc();}},
+        off: function(){if(isFullscreen()){offFunc();}},
+        toggle: function(){if(isFullscreen()){offFunc();}else{onFunc();}}
+      };
+      
+    })();
     
     
     $window.on("resize", update);
     
-    if(keyMap.size){
-      $document.on("keydown", function(event){
+    
+    const turnKeys = (function(){
       
-        //Assume they're trying to do something else if modifier key is pressed
-        if(event.altKey || event.ctrlKey || event.metaKey || event.shiftKey){return;}
+      const keyFunc = function(){
+        if(keyMap.size){
 
-        let value = keyMap.get(event.keyCode);
+          //Assume they're trying to do something else if modifier key is pressed
+          if(event.altKey || event.ctrlKey || event.metaKey || event.shiftKey){return;}
 
-        //If no mapping defined then just exit
-        if(value === undefined){return;}
+          let value = keyMap.get(event.keyCode);
 
-        //If key is mapped then stop event going any further
-        event.preventDefault();
+          //If no mapping defined then just exit
+          if(value === undefined){return;}
 
-        if(value === "aspect"){
-          aspects.set();
-          return;
-        }
+          //If key is mapped then stop event going any further
+          event.preventDefault();
 
-        if(value === "fullscreen"){
-          fullscreen();
-          return;
-        }      
-
-        if(value === "theme"){
-          themes.set();
-          return;
-        }
-        
-        if(value === "transition"){
-          transitions.set();
-          return;
-        }
-
-
-        if(["previous", "next", "first", "last"].indexOf(value) !== -1 || Number.isFinite(value)){
-          let newSlide;
-          switch(value){
-            case "previous":
-              newSlide = top.index - 1;
-              break;
-            case "next":
-              newSlide = top.index + 1;
-              break;
-            case "first":
-              newSlide = 0;
-              break;
-            case "last":
-              newSlide = nSlides -1;
-              break;
-            default:
-              newSlide = value;
-              break;
+          if(value === "aspect"){
+            aspects.set();
+            return;
           }
-          changeSlide(newSlide);
-          return;
-        }
 
-      });
+          if(value === "fullscreen"){
+            fullscreen.on();
+            return;
+          }      
+
+          if(value === "theme"){
+            themes.set();
+            return;
+          }
+
+          if(value === "transition"){
+            transitions.set();
+            return;
+          }
+
+
+          if(["previous", "next", "first", "last"].indexOf(value) !== -1 || Number.isFinite(value)){
+            let newSlide;
+            switch(value){
+              case "previous":
+                newSlide = top.index - 1;
+                break;
+              case "next":
+                newSlide = top.index + 1;
+                break;
+              case "first":
+                newSlide = 0;
+                break;
+              case "last":
+                newSlide = nSlides -1;
+                break;
+              default:
+                newSlide = value;
+                break;
+            }
+            changeSlide(newSlide);
+            return;
+          }
+          
+        }
+      };
+
+      let keysOn;
       
-    }
+      let out = {
+        on: function(){if(!keysOn){$document.on("keydown", keyFunc); keysOn = true;}},
+        off: function(){if(keysOn){$document.off("keydown", keyFunc); keysOn = false;}},
+        toggle: function(){
+          if(keysOn){$document.off("keydown", keyFunc);}
+          else{$document.on("keydown", keyFunc);}
+          keysOn = !keysOn;
+        }
+      };
+      
+      out.on();
+      
+      return out;
+      
+    })();
     
   
     update();
+    
+    
+    return{
+      firstSlide: function(){changeSlide(0); return this;},
+      lastSlide: function(){changeSlide(nSlides-1); return this;},
+      previousSlide: function(){changeSlide(top.index - 1); return this;},
+      nextSlide: function(){changeSlide(top.index + 1); return this;},
+      nthSlide: function(num){if(isFiniteNumber(num)){changeSlide(num);} return this;},
+      changeTheme: function(name){themes.set(name); return this;},
+      changeTransition: function(name){transitions.set(name); return this;},
+      changeAspect: function(name){aspects.set(name); return this;},
+      turnOnFullscreen: function(name){fullscreen.on(); return this;},
+      turnOffFullscreen: function(name){fullscreen.off(); return this;},
+      toggleFullscreen: function(name){fullscreen.toggle(); return this;},
+      turnOnKeys: function(name){turnKeys.on(); return this;},
+      turnOffKeys: function(name){turnKeys.off(); return this;},
+      toggleKeys: function(name){turnKeys.toggle(); return this;}
+    };
     
     
   };
