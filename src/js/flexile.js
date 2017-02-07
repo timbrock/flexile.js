@@ -305,16 +305,16 @@ let flexile = (function(){
     };
     
     let transitions = {
-      default: {name: "default", description: "Disappear instantly."},
-      fade: {name: "fade", description: "Fade out to become completely transparent."},
-      right: {name: "slide-right", description: "Slide off to the right of the screen."}
+      default: {name: "default"},
+      fade: {name: "fade"},
+      right: {name: "slide-right"}
     };
     
     let aspects = {
-      wide: {name: "wide", aspect: 16/9, description: "Typical widescreen TV aspect"},
-      monitor: {name: "monitor", aspect: 16/10, description: "Preferred aspect of some monitors"},
-      traditional: {name: "traditional", aspect: 4/3, description: "iPad or CRT monitor"},
-      phone: {name: "phone", aspect: 9/16, description: "Typical phone in portrait mode"},
+      wide: {name: "wide", aspect: 16/9},
+      monitor: {name: "monitor", aspect: 16/10},
+      traditional: {name: "traditional", aspect: 4/3},
+      phone: {name: "phone", aspect: 9/16},
       square: {name: "square", aspect: 1},
       cinema: {name: "cinema", aspect: 2.39},
       a4p: {name: "a4-portrait", aspect: 210/297},
@@ -323,8 +323,20 @@ let flexile = (function(){
     
     let keys = {
       lrpn: [
-        {code: 37, value: "previous", type: "arrow", description: "left-arrow key move to previous slide"},
-        {code: 39, value: "next", type: "arrow", description: "lright-arrow key move to next slide"},
+        {code: 37, value: "previous", type: "arrow"},
+        {code: 39, value: "next", type: "arrow"},
+      ],
+      lrnp: [
+        {code: 37, value: "next", type: "arrow"},
+        {code: 39, value: "previous", type: "arrow"},
+      ],
+      udpn: [
+        {code: 38, value: "previous", type: "arrow"},
+        {code: 40, value: "next", type: "arrow"},
+      ],
+      udnp: [
+        {code: 38, value: "next", type: "arrow"},
+        {code: 40, value: "previous", type: "arrow"},
       ],
       numbers0: [
         {code: 48, value: 0, type: "number", description: "0 goes to slide at beginning"},
@@ -366,8 +378,8 @@ let flexile = (function(){
     
     const isAspectObject = function(obj){
       let valid = false;
-      if(hasProperties(obj, "name", "aspect")){
-        if(isSimpleString(obj.name) && isFiniteNumber(obj.aspect)){
+      if(hasProperties(obj, "name")){
+        if(isSimpleString(obj.name)){
           valid = true;
         }
       }
@@ -635,26 +647,12 @@ let flexile = (function(){
     
     const update = (function(){
       
-      const updateAspectRatio = function(){
-        let aspect = aspects.get().aspect;
-        let fsClass = "flexile-fullscreen";
-        
+      const updateFullscreenClass = function(){
+        let fsClass = "flexile-fullscreen"; 
         if(isFullscreen()){
-          $screen.addClass(fsClass)
-            .css("height", "100%");
-          let ratio = $window.width()/$window.height();
-          if(ratio > aspect){
-            $box.css("width", aspect*100 + "vh")
-              .css("height", "100%");
-          } else{
-            $box.css("width", "100%")
-              .css("height", (1/aspect)*100 + "vw");
-          }
+          $screen.addClass(fsClass);
         } else{
-          $screen.removeClass(fsClass)
-            .css("height", (1/aspect)*100 + "vw");
-          $box.css("width", "100%")
-              .css("height", "100%");
+          $screen.removeClass(fsClass);
         }
       };
       
@@ -665,81 +663,44 @@ let flexile = (function(){
       };
       
       return function(){
-        updateAspectRatio();        
+        updateFullscreenClass();        
         updateFontSize();
       };
       
     })();
     
     
-    const storeCreator = function(arr, changeFunc, ...properties){
+    const storeCreator = function(arr, changeFunc){
       const store = [];
-    
-      const putStore = (function(){
-        let func;
-        if(properties.length === 1){
-          func = function(item){store.push(item[properties[0]]);};
-        } else{
-          func = function(item){
-            let obj = {};
-            properties.forEach(function(property){
-              obj[property] = item[property];
-            });
-            store.push(obj);
-          };
-        }
-        return func;
-      })();
       
-      arr.forEach(putStore);
+      arr.forEach(function(item){store.push(item.name);});
       
       Object.freeze(store);
       let storeIndex = 0;
       const n = store.length;
       
-      let currentName, getIndex;
+      const getCurrent = function(){return store[storeIndex];};
       
-      (function(){
-        if(isString(store[storeIndex])){
-          currentName = function(){return store[storeIndex];};
-          getIndex = function(value){return store.indexOf(value);};
-        } else{
-          let keyProp = properties[0];
-          currentName = function(){return store[storeIndex][keyProp];};
-          getIndex = function(value){
-            let out = -1;
-            for(let [index, stored] of store.entries()){
-              if(stored[keyProp] === value){
-                out = index;
-                break;
-              }
-            }
-            return out;
-          };
-        }
-      })();
-      
-      
-      changeFunc(currentName());
+      changeFunc(getCurrent());
       
       return{
-        get: function(){return store[storeIndex];},
+        get: function(){return getCurrent();},
         
         set: function(value){
           let change = false;
           if(n > 1){
             if(value !== undefined){
-              let index = getIndex(value);
+              let index = store.indexOf(value);
               if(index !== -1){
                 storeIndex = index;
-                change = store[storeIndex];
+                change = getCurrent();
               }
             } else{
                 storeIndex = (storeIndex + 1) % n;
-                change = store[storeIndex];
+                change = getCurrent();
             }
             if(change){
-              changeFunc(currentName());
+              changeFunc(getCurrent());
               update(); 
             }  
           }
@@ -769,7 +730,7 @@ let flexile = (function(){
     };
     
     const themes = storeCreator(setup.themes, changeClass($slideshow, "theme"), "name");
-    const aspects = storeCreator(setup.aspects, changeClass($slideshow, "aspect"), "name", "aspect");
+    const aspects = storeCreator(setup.aspects, changeClass($slideshow, "aspect"), "name");
     
     const transitions = (function(){
       let reg = /\bflexile-transition-[A-Za-z\d_-]+/g;
@@ -788,29 +749,6 @@ let flexile = (function(){
     })();
     
     
-    const moveSlide = (function(){
-      let stackClass = "flexile-slide-stack"; //class for slide that is not yet discarded
-      let discardClass = "flexile-slide-discard";
-      let animateClass = "flexile-animate-transition";
-      
-      $slides.addClass(stackClass);
-      $slides.on('transitionend oTransitionEnd transitionend webkitTransitionEnd', function(event){
-        $el(this).removeClass(animateClass);
-      });
-      //return object with functions to change classes that should push slides on or off screen.
-      return{
-        discard: function($handle){
-          $handle.removeClass(stackClass)
-            .addClass(animateClass)
-            .addClass(discardClass);
-        },
-        replace: function($handle){
-          $handle.removeClass(discardClass)
-            .addClass(animateClass)
-            .addClass(stackClass);
-        },
-      };
-    })();
     
     //Object for changing and keeping track of which slide is visible on "top" of the screen.
     const top = (function(){
@@ -830,31 +768,91 @@ let flexile = (function(){
       };
     })();
     
-    top.index = 0;
     
     //Checks if number corresponds to a real slide before moving slides that require moving on to or off stack
-    const changeSlide = function(num){
-      let current = top.index;
-      if((num < 0) || (num >= nSlides) || (num === current)){return false;}
+    const topSlide = (function(){
+      
+      let topIndex;
+      const getCurrent = function(){return $slides.eq(topIndex);};
+      let topClass = "flexile-slide-top";
+      let startClass = "flexile-first-slide";
+      let endClass = "flexile-last-slide";
+      let stackClass = "flexile-slide-stack"; //class for slide that is not yet discarded
+      let discardClass = "flexile-slide-discard";
+      let animateClass = "flexile-animate-transition";
+      
+      const moveSlide = (function(){  
 
-      if(num > current){
-        let first = current;
-        let last = num; 
-        for(let i = first; i < last; i++){
-          moveSlide.discard($slides.eq(i));
-        }
-      } else{
-        let first = num;
-        let last = current;
-        for(let i = first; i < last; i++){
-          moveSlide.replace($slides.eq(i));
-        }
-      }
+        $slides.addClass(stackClass);
+        $slides.on('transitionend oTransitionEnd transitionend webkitTransitionEnd', function(event){
+          $el(this).removeClass(animateClass);
+        });
+        //return object with functions to change classes that should push slides on or off screen.
+        return{
+          discard: function($handle){
+            $handle.removeClass(stackClass)
+              .addClass(animateClass)
+              .addClass(discardClass);
+          },
+          replace: function($handle){
+            $handle.removeClass(discardClass)
+              .addClass(animateClass)
+              .addClass(stackClass);
+          },
+        };
+      })();
       
-      top.index = num;
+      const getTopSlide = function(){return topIndex;};
       
-      return true;
-    };
+      const setTopSlide = function(num){
+        let oldNum = topIndex;
+        if((num < 0) || (num >= nSlides) || (num === oldNum)){return false;}
+        
+        if(oldNum !== undefined){
+          getCurrent().removeClass(topClass);
+        }
+        
+        if(oldNum === 0){
+          $box.removeClass(startClass);  
+        }
+        if(oldNum === nSlides - 1){
+          $box.removeClass(endClass);
+        }
+        if(num === 0){
+          $box.addClass(startClass); 
+        }
+        if(num === nSlides - 1){
+          $box.addClass(endClass);
+        }
+
+        if(num > oldNum){
+          let first = oldNum;
+          let last = num; 
+          for(let i = first; i < last; i++){
+            moveSlide.discard($slides.eq(i));
+          }
+        } else{
+          let first = num;
+          let last = oldNum;
+          for(let i = first; i < last; i++){
+            moveSlide.replace($slides.eq(i));
+          }
+        }
+
+        topIndex = num;
+        getCurrent().addClass(topClass);
+
+        return true;
+      };
+      
+      return{
+        get: getTopSlide,
+        set: setTopSlide
+      };
+      
+    })();
+    
+    topSlide.set(0);
     
     //Function that actually implements transition to fullscreen mode (if available)
     const fullscreen = (function(){
@@ -891,10 +889,7 @@ let flexile = (function(){
       };
       
     })();
-    
-    
-    $window.on("resize", update);
-    
+        
     
     const turnKeys = (function(){
       
@@ -918,7 +913,7 @@ let flexile = (function(){
           }
 
           if(value === "fullscreen"){
-            fullscreen.on();
+            fullscreen.toggle();
             return;
           }      
 
@@ -937,10 +932,10 @@ let flexile = (function(){
             let newSlide;
             switch(value){
               case "previous":
-                newSlide = top.index - 1;
+                newSlide = topSlide.get() - 1;
                 break;
               case "next":
-                newSlide = top.index + 1;
+                newSlide = topSlide.get() + 1;
                 break;
               case "first":
                 newSlide = 0;
@@ -952,7 +947,7 @@ let flexile = (function(){
                 newSlide = value;
                 break;
             }
-            changeSlide(newSlide);
+            topSlide.set(newSlide);
             return;
           }
           
@@ -977,16 +972,16 @@ let flexile = (function(){
       
     })();
     
-  
+    $window.on("resize", update);
     update();
     
     
     return{
-      firstSlide: function(){changeSlide(0); return this;},
-      lastSlide: function(){changeSlide(nSlides-1); return this;},
-      previousSlide: function(){changeSlide(top.index - 1); return this;},
-      nextSlide: function(){changeSlide(top.index + 1); return this;},
-      nthSlide: function(num){if(isFiniteNumber(num)){changeSlide(num);} return this;},
+      firstSlide: function(){topSlide.set(0); return this;},
+      lastSlide: function(){topSlide.set(nSlides-1); return this;},
+      previousSlide: function(){changeSlide(topSlide.get() - 1); return this;},
+      nextSlide: function(){changeSlide(topSlide.get() + 1); return this;},
+      nthSlide: function(num){if(isFiniteNumber(num)){topSlide.set(num);} return this;},
       changeTheme: function(name){themes.set(name); return this;},
       changeTransition: function(name){transitions.set(name); return this;},
       changeAspect: function(name){aspects.set(name); return this;},
@@ -995,7 +990,8 @@ let flexile = (function(){
       toggleFullscreen: function(name){fullscreen.toggle(); return this;},
       turnOnKeys: function(name){turnKeys.on(); return this;},
       turnOffKeys: function(name){turnKeys.off(); return this;},
-      toggleKeys: function(name){turnKeys.toggle(); return this;}
+      toggleKeys: function(name){turnKeys.toggle(); return this;},
+      update
     };
     
     

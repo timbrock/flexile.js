@@ -1,7 +1,7 @@
 /* line 3, ../sass/flexile.scss */
 .flexile-slideshow {
   /* HTML5 display-role reset for older browsers */
-  width: 100%;
+  /*width: 100%;*/
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
@@ -57,10 +57,19 @@
 /* line 13, ../sass/flexile.scss */
 .flexile-slideshow .flexile-screen {
   background: none;
-  position: relative;
+  position: absolute;
   width: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
-/* line 23, ../sass/flexile.scss */
+/* line 25, ../sass/flexile.scss */
+.flexile-slideshow .flexile-screen.flexile-fullscreen {
+  width: 100%;
+  height: 100%;
+}
+/* line 31, ../sass/flexile.scss */
 .flexile-slideshow .flexile-box {
   position: absolute;
   overflow: hidden;
@@ -69,13 +78,13 @@
   left: 0%;
   top: 0%;
 }
-/* line 32, ../sass/flexile.scss */
+/* line 40, ../sass/flexile.scss */
 .flexile-slideshow .flexile-screen.flexile-fullscreen .flexile-box {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
-/* line 36, ../sass/flexile.scss */
+/* line 44, ../sass/flexile.scss */
 .flexile-slideshow .flexile-slide, .flexile-slideshow .flexile-static-layer {
   top: 0%;
   left: 0%;
@@ -84,30 +93,94 @@
   position: absolute;
   overflow: hidden;
 }
-/* line 46, ../sass/flexile.scss */
+/* line 54, ../sass/flexile.scss */
 .flexile-slideshow .flexile-slide.flexile-animate-transition {
   transition-duration: transform 1s;
 }
-/* line 49, ../sass/flexile.scss */
+/* line 57, ../sass/flexile.scss */
 .flexile-slideshow .flexile-slide .flexile-slide-content > * {
   display: block;
   position: absolute;
 }
-/* line 55, ../sass/flexile.scss */
+/* line 63, ../sass/flexile.scss */
 .flexile-slideshow .flexile-slide-discard {
   pointer-events: none;
 }
-/* line 61, ../sass/flexile.scss */
+/* line 69, ../sass/flexile.scss */
 .flexile-slideshow .flexile-transition-default.flexile-slide-discard, .flexile-slideshow .flexile-transition-vanish.flexile-slide-discard {
   display: none;
 }
-/* line 66, ../sass/flexile.scss */
+/* line 74, ../sass/flexile.scss */
 .flexile-slideshow .flexile-slide-content {
   position: relative;
   border: 1px solid black;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+/* line 80, ../sass/flexile.scss */
+.flexile-slideshow.flexile-aspect-wide {
+  padding-bottom: 56.25%;
+}
+/* line 82, ../sass/flexile.scss */
+.flexile-slideshow.flexile-aspect-wide .flexile-fullscreen .flexile-box {
+  width: 100%;
+  height: 56.25vw;
+}
+@media (min-aspect-ratio: 16 / 9) {
+  /* line 82, ../sass/flexile.scss */
+  .flexile-slideshow.flexile-aspect-wide .flexile-fullscreen .flexile-box {
+    width: 177.77778vh;
+    height: 100%;
+  }
+}
+/* line 92, ../sass/flexile.scss */
+.flexile-slideshow.flexile-aspect-monitor {
+  padding-bottom: 62.5%;
+}
+/* line 94, ../sass/flexile.scss */
+.flexile-slideshow.flexile-aspect-monitor .flexile-fullscreen .flexile-box {
+  width: 100%;
+  height: 62.5vw;
+}
+@media (min-aspect-ratio: 16 / 10) {
+  /* line 94, ../sass/flexile.scss */
+  .flexile-slideshow.flexile-aspect-monitor .flexile-fullscreen .flexile-box {
+    width: 160vh;
+    height: 100%;
+  }
+}
+/* line 104, ../sass/flexile.scss */
+.flexile-slideshow.flexile-aspect-traditional {
+  padding-bottom: 75%;
+}
+/* line 106, ../sass/flexile.scss */
+.flexile-slideshow.flexile-aspect-traditional .flexile-fullscreen .flexile-box {
+  width: 100%;
+  height: 75vw;
+}
+@media (min-aspect-ratio: 4 / 3) {
+  /* line 106, ../sass/flexile.scss */
+  .flexile-slideshow.flexile-aspect-traditional .flexile-fullscreen .flexile-box {
+    width: 133.33333vh;
+    height: 100%;
+  }
+}
+/* line 116, ../sass/flexile.scss */
+.flexile-slideshow.flexile-aspect-cinema {
+  padding-bottom: 41.84%;
+}
+/* line 118, ../sass/flexile.scss */
+.flexile-slideshow.flexile-aspect-cinema .flexile-fullscreen .flexile-box {
+  width: 100%;
+  height: 41.84vw;
+}
+@media (min-aspect-ratio: 239 / 100) {
+  /* line 118, ../sass/flexile.scss */
+  .flexile-slideshow.flexile-aspect-cinema .flexile-fullscreen .flexile-box {
+    width: 239vh;
+    height: 100%;
+  }
 }
 
 /* line 1, ../sass/_theme-light.scss */

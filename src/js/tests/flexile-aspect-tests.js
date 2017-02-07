@@ -40,15 +40,11 @@
         expect(aspects.length === defLen && aspects[0].name === defName).toBe(true);
       });
       
-      it("should return false if only name or aspect is passed as object property", function(){  
+      it("should return true if only name is passed as object property", function(){  
         let input = {name: "light"};
-        expect(func(input)).toBe(false);
+        expect(func(input)).toBe(1);
         let aspects = obj.getClone().aspects;
-        expect(aspects.length === defLen && aspects[0].name === defName).toBe(true);
-        input = {aspect: 1.6, size: "big"};
-        expect(func(input)).toBe(false);
-        aspects = obj.getClone().aspects;
-        expect(aspects.length === defLen && aspects[0].name === defName).toBe(true);
+        expect(aspects.length === 1 && aspects[0].name === input.name).toBe(true);
       });
       
       it("should return false if array with inappropriate values is passed", function(){  
@@ -60,11 +56,11 @@
         expect(aspects.length === defLen && aspects[0].name === defName).toBe(true);
       });
       
-      it("should return false if unsuitable value passed for name or aspect property", function(){  
+      it("should return false if unsuitable value passed for name property", function(){  
         expect(func({name: 7, aspect: 1.2})).toBe(false);
         let aspects = obj.getClone().aspects;
         expect(aspects.length === defLen && aspects[0].name === defName).toBe(true);
-        expect(func([{name: "wide", aspect: 1.2}, {name: "wider", aspect: "2.0"}])).toBe(false);
+        expect(func([{name: "wide", aspect: 1.2}, {name: 7}])).toBe(false);
         aspects = obj.getClone().aspects;
         expect(aspects.length === defLen && aspects[0].name === defName).toBe(true);
       });
