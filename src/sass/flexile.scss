@@ -1,0 +1,93 @@
+@import "partials/helpers";
+
+.flexile-slideshow{
+  @include reset();
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	box-sizing: border-box;
+	position: relative;
+  overflow: hidden;
+  -webkit-text-size-adjust: none !important;
+  text-size-adjust: none !important;
+  
+	.flexile-screen{
+    //In most cases screen is not visible unless in fullscreen mode.
+    //All the provided themes overwrite the background set below when in fullscreen.
+    //With some transitions like slide-left-right, screen can be seen during transitions.
+    //May or may not want to overwrite this background setting in theme to match colour in fullscreen mode.
+    background: none;
+		position: absolute;
+		width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    &.flexile-fullscreen{
+      width: 100%;
+      height: 100%;
+    }
+  }
+  
+  .flexile-box{
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    left: 0%;
+    top: 0%;
+  }
+  
+  .flexile-screen.flexile-fullscreen .flexile-box{
+    @include place-centre();
+  }
+  
+  .flexile-slide, .flexile-static-layer{
+    top: 0%;
+    left: 0%;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		overflow: hidden;
+    & > *{
+      display: block;
+      position: absolute;
+    }
+  }
+  
+  .flexile-slide{
+    transition-property: transform;
+    transition-duration: 1s;
+  }
+  
+  .flexile-slide-discard{
+    pointer-events: none;
+  }
+  
+  
+  .flexile-transition-vanish{  
+    &.flexile-slide-discard{
+      display: none;
+    }
+  } 
+
+  .flexile-static-layer{
+    pointer-events: none;
+    & > *{
+      pointer-events: auto;
+    }
+  }
+  
+}
+
+
+@import "partials/aspects";
+
+@import "partials/theme-base-rules";
+@import "partials/theme-light";
+@import "partials/theme-dark";
+@import "partials/theme-white";
+@import "partials/theme-black";
+
+@import "partials/helpers-transitions";
+@import "partials/transitions";

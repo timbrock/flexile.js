@@ -1,0 +1,213 @@
+@charset "utf-8";
+
+.flexile-slideshow.flexile-aspect-wide .flexile-slide-content{
+  width: 95.22222%;
+  height: 91.50617%;
+}
+.flexile-slideshow.flexile-aspect-monitor .flexile-slide-content{
+  width: 94.71429%;
+  height: 91.54286%;
+}
+.flexile-slideshow.flexile-aspect-traditional .flexile-slide-content{
+  width: 93.95238%;
+  height: 91.93651%;
+}
+.flexile-slideshow.flexile-aspect-cinema .flexile-slide-content{
+  width: 96.97143%;
+  height: 92.76171%;
+}
+
+.flexile-slideshow .flexile-slide-content{
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.flexile-slideshow .flexile-slide-content > *{
+  display: block;
+  position: absolute;
+}
+
+.flexile-slideshow.flexile-theme-light .flexile-slide-content{
+  border: 1px solid black;
+}
+
+.flexile-slideshow.flexile-theme-dark .flexile-slide-content{
+  border: 1px solid white;
+}
+
+.flexile-slideshow.flexile-aspect-traditional{
+  font-size: 40px;
+}
+
+.flexile-slideshow.flexile-aspect-cinema{
+  font-size: 30px;
+}
+
+.flexile-slideshow h3{
+  top: 3%;
+  left: 5%;
+}
+.main-container{
+  top: 15%;
+  left: 5%;
+  width: 90%;
+}
+
+.flexile-slideshow.flexile-aspect-cinema .main-container{
+  top: 20%
+}
+
+.flexile-slideshow .small-note{
+  top: 60%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 75%;
+  width: 60%;
+  font-family: Georgia;
+  color: #888888;
+  text-align: center;
+}
+
+.flexile-slideshow.flexile-aspect-traditional .small-note{
+  top: 53%;
+}
+
+.flexile-slideshow.flexile-aspect-cinema h2{
+  top: 20%;
+}
+
+.flexile-slideshow .resize-image{
+  left: 50%;
+  transform: translateX(-50%);
+  top: 50%;
+  width: 45%
+}
+
+.flexile-slideshow.flexile-aspect-cinema .resize-image{
+  left: 50%;
+  transform: translateX(-50%);
+  top: 55%;
+  width: 30%
+}
+
+.flexile-slideshow span.button{
+  display: inline-block;
+  border-radius: 0.15em;
+  color: inherit;
+  padding: 0px 0.15em 0.06em 0.15em;
+  margin-left: 0.15em;
+  margin-right: 0.15em;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+
+.flexile-slideshow.flexile-theme-light span.button{
+  border: solid 0.03em rgb(187,187,187);
+  box-shadow: inset 0 0.05em 0 rgba(255, 255, 255, 0.4), 0 0.05em 0.05em rgba(0, 0, 0, 0.2);
+  background: rgb(240,240,240);
+}
+
+.flexile-slideshow.flexile-theme-light  span.button:hover{
+	color: black;
+}
+
+.flexile-slideshow.flexile-theme-light  span.button:active{
+	background: rgb(10,10,10);
+  color: rgb(245,245,245);
+  box-shadow: none;
+}
+
+.flexile-slideshow.flexile-theme-dark span.button{
+  border: solid 0.03em rgb(68, 68, 68);
+  box-shadow: inset 0 0.05em 0 rgba(0, 0, 0, 0.4), 0 0.05em 0.05em rgba(255, 255, 255, 0.2);
+  background: rgb(15, 15, 15);
+}
+
+.flexile-slideshow.flexile-theme-dark  span.button:hover{
+	color: white;
+}
+
+.flexile-slideshow.flexile-theme-dark  span.button:active{
+  background: rgb(245,245,245);
+	color: rgb(10,10,10);
+  box-shadow: none;
+}
+
+.flexile-slideshow span.button.arrow{
+  font-size: 150%;
+  bottom: 10%;
+}
+
+.flexile-slideshow span.button.arrow span{
+  position: relative;
+  top: -0.05em; 
+}
+
+.flexile-slideshow.flexile-aspect-cinema span.button.arrow{
+  bottom: 6%;
+}
+
+.flexile-slideshow .left-arrow{
+  left: 5%;
+}
+
+.flexile-slideshow .flexile-first-slide .left-arrow{
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.flexile-slideshow .flexile-last-slide .right-arrow{
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.flexile-slideshow .right-arrow{
+  right: 5%;
+}
+
+.flexile-slideshow.flexile-aspect-cinema .left-arrow{
+  left: 2%;
+}
+.flexile-slideshow.flexile-aspect-cinema .right-arrow{
+  right: 2%;
+}
+
+.flexile-slideshow.flexile-theme-light a{
+  color: rgb(0, 0, 238);
+}
+
+.flexile-slideshow.flexile-theme-light a:visited{
+  color: rgb(0, 0, 238);  
+}
+
+.flexile-slideshow.flexile-theme-light a:hover{
+  color: rgb(0, 0, 238);  
+}
+
+.flexile-slideshow.flexile-theme-light a:visited{
+  color: rgb(0, 0, 238);
+}
+
+.flexile-slideshow.flexile-theme-dark a{
+  color: rgb(238, 238, 17);
+}
+
+.flexile-slideshow.flexile-theme-dark a:visited{
+  color: rgb(238, 238, 17);
+}
+
+.flexile-slideshow.flexile-theme-dark a:hover{
+  color: rgb(238, 238, 17);
+}
+
+.flexile-slideshow.flexile-theme-dark a:visited{
+  color: rgb(238, 238, 17);
+}
+
+p.end-p{
+  margin-bottom: 300px;
+}

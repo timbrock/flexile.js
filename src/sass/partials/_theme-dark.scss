@@ -1,0 +1,14 @@
+.flexile-slideshow.flexile-theme-dark{
+  
+  @include theme-base();
+  color: #dddddd;
+  
+  .flexile-screen.flexile-fullscreen{
+    background: white;
+  }
+  
+  .flexile-slide{
+    background-color: #333333;
+  }
+  
+}

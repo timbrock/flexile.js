@@ -1,0 +1,54 @@
+@mixin squash($transition-name, $lr, $tb){
+  .flexile-transition-#{$transition-name}{
+    will-change: transform;
+    transform-origin: $lr $tb;
+    transform: scale(1);
+    &.flexile-slide-discard{
+      transform: scale(0);
+    }
+  }
+}
+
+@mixin rotate-clockwise($transition-name, $lr, $tb){
+  .flexile-transition-#{$transition-name}{
+    will-change: transform;
+    transform-origin: $lr $tb;
+    transform: rotateZ(0deg);
+    &.flexile-slide-discard{
+      transform: rotateZ(90deg);
+    }
+  }
+}
+
+@mixin rotate-anti-clockwise($transition-name, $lr, $tb){
+  .flexile-transition-#{$transition-name}{
+    will-change: transform;
+    transform-origin: $lr $tb;
+    transform: rotateZ(0deg);
+    &.flexile-slide-discard{
+      transform: rotateZ(-90deg);
+    }
+  }
+}
+
+@mixin spin-clockwise($transition-name, $amount){
+    .flexile-transition-#{$transition-name}{
+      will-change: transform;
+      transform-origin: 50% 50%;
+      transform:  rotateZ(0deg) scale(1);
+      &.flexile-slide-discard{
+        transform:  rotateZ($amount * 1deg) scale(0);
+      }
+    }
+  }
+  
+@mixin spin-anti-clockwise($transition-name, $amount){
+  .flexile-transition-#{$transition-name}{
+    will-change: transform;
+    transform-origin: 50% 50%;
+    transform:  rotateZ(0deg) scale(1);
+    &.flexile-slide-discard{
+      transform:  rotateZ(-$amount * 1deg) scale(0);
+    }
+  }
+}
