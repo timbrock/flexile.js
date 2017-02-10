@@ -175,3 +175,35 @@
 .flexile-slideshow.flexile-aspect-cinema .right-arrow{
   right: 2%;
 }
+
+.flexile-slideshow.flexile-theme-light a{
+  color: rgb(0, 0, 238);
+}
+
+.flexile-slideshow.flexile-theme-light a:visited{
+  color: rgb(0, 0, 238);  
+}
+
+.flexile-slideshow.flexile-theme-light a:hover{
+  color: rgb(0, 0, 238);  
+}
+
+.flexile-slideshow.flexile-theme-light a:visited{
+  color: rgb(0, 0, 238);
+}
+
+.flexile-slideshow.flexile-theme-dark a{
+  color: rgb(238, 238, 17);
+}
+
+.flexile-slideshow.flexile-theme-dark a:visited{
+  color: rgb(238, 238, 17);
+}
+
+.flexile-slideshow.flexile-theme-dark a:hover{
+  color: rgb(238, 238, 17);
+}
+
+.flexile-slideshow.flexile-theme-dark a:visited{
+  color: rgb(238, 238, 17);
+}
