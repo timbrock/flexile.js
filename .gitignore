@@ -1,4 +1,5 @@
 egs/images/
-src/sass/_spare.scss
+src/sass/discards/
 egs/discards/
 src/js/discards/
+src/js/dep/

@@ -35,9 +35,6 @@
         expect(func(/Regular expression/)).toBe(false);
         aspects = obj.getClone().aspects;
         expect(aspects.length === defLen && aspects[0].name === defName).toBe(true);
-        expect(func("very-wide")).toBe(false);
-        aspects = obj.getClone().aspects;
-        expect(aspects.length === defLen && aspects[0].name === defName).toBe(true);
       });
       
       it("should return true if only name is passed as object property", function(){  
@@ -51,11 +48,19 @@
         expect(func([" "])).toBe(false);
         let aspects = obj.getClone().aspects;
         expect(aspects.length === defLen && aspects[0].name === defName).toBe(true);
-        expect(func(["hi", {name: "wide", aspect:1.2}])).toBe(false);
-        aspects = obj.getClone().aspects;
-        expect(aspects.length === defLen && aspects[0].name === defName).toBe(true);
       });
       
+      it("should return true if appropriate string or array of strings is passed", function(){
+        let input = "very-wide";
+        expect(func(input)).toBe(1);
+        let aspects = obj.getClone().aspects;
+        expect(aspects.length === 1 && aspects[0].name === input).toBe(true);
+        input = ["very-wide", "square"];
+        expect(func(input)).toBe(2);
+        aspects = obj.getClone().aspects;
+        expect(aspects.length === input.length && aspects[0].name === input[0]).toBe(true);
+      });
+         
       it("should return false if unsuitable value passed for name property", function(){  
         expect(func({name: 7, aspect: 1.2})).toBe(false);
         let aspects = obj.getClone().aspects;

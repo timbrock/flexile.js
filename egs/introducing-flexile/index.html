@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Slideshow Test Page</title>
+
+<link rel="stylesheet" type="text/css" href="../../src/css/flexile.css">
+<link rel="stylesheet" type="text/css" href="introducing-flexile.css">
+
+</head>
+
+<body>
+
+<div class="container">
+<h1 style="color:#555">Test Page</h1>
+
+<div id="presentation">
+
+  <section class="flexile-static-layer">
+    <span id="previous-slide" class="button arrow left-arrow"><span>&larr;</span></span>
+    <span id="next-slide" class="button arrow right-arrow"><span>&rarr;</span></span>
+  </section>
+
+  <section>
+    <div class="flexile-slide-content">
+      <h2>Introducing flexile.js</h2>
+      <p class="small-note">Use the arrows below or the left and right arrows on your keyboard to navigate</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="flexile-slide-content">
+      <h3>Purpose</h3>
+      <div class="main-container">
+        <p>The goal of flexile.js is to provide a small, easy-to-use, JavaScript framework for the creation of responsive, browser-based, slideshows and presentations that can adapt to various scenarios. For example...</p>
+      </div>
+    </div>
+  </section>
+  
+  <section>
+    <div class="flexile-slide-content">
+      <h3>Resize</h3>
+      <div class="main-container">
+        <p>Resize your browser or rotate your mobile device and the slides and text will adapt to the changes. Elements like images and video can be sized in percentages too.</p>
+      </div>
+      <img class="resize-image" src="waves.jpg"/>
+    </div>
+  </section>
+  
+  <section>
+    <div class="flexile-slide-content">
+      <h3>Change theme</h3>
+      <div class="main-container">
+        <p>It might not be obvious in advance of a presentation whether dark text on a light background or light text on a dark background would be better. With flexile.js you can define multiple themes with CSS and switch between them instantly.</p>
+        <p>Press the "t" key or <span id="change-theme" class="button">click here</span> to toggle between the default light theme and a dark theme.</p>
+      </div>
+    </div>
+	</section>
+	
+  <section>
+    <div class="flexile-slide-content">
+      <h3>Change aspect ratio</h3>
+      <div class="main-container">
+        <p>With flexile.js you can use a number of preconfigured aspect ratios and instantly switch between them with the press of a key. Using regular CSS class selectors, a slides layout can be adapted to better fit a specific aspect ratio.</p>
+        <p>Press the "a" key on your keyboard (or <span id="change-aspect" class="button">click here</span>) to loop through a selection of common aspect ratios.</p>
+      </div>
+    </div>
+  </section>
+  
+	<section>
+    <div class="flexile-slide-content">
+      <h3>Go fullscreen</h3>
+      <div class="main-container">  
+        <p>flexile.js makes the HTML5 Fullscreen API easy to use (where supported). With fullscreen mode you can stick several flexile.js slideshows together on a single page <em>and</em> let the user view each one at maximum size.</p>
+        <p>Press "f" or <span id="change-fullscreen" class="button">click here</span> to try it out.</p>
+      </div>
+    </div>
+	</section>  
+	
+	<section class="flexile-transition-shrink">
+    <div class="flexile-slide-content">
+      <h3>Change how slides transition</h3>
+      <div class="main-container">
+        <p>The CSS files that accompany flexile.js define around 40 different slide transition modes. It's simple to set any given one as a default, but you can overide the default on any slide or even set up a key or button that will change the transition mode on the fly.</p>
+      </div>
+    </div>
+	</section>
+	
+  <section class="flexile-transition-rotate-1a">
+  	<div class="flexile-slide-content">
+      <h3>Define custom keys</h3>
+      <div class="main-container">  
+        <p>flexile.js makes it easy to define custom keyboard keys to perform a number of operations. You've seen several examples already, but if you have a keyboard in front of you you can also use the regular number keys to switch slides and the "[" and "]" keys to go to the start and end of the presentation.</p>
+      </div>
+    </div>
+	</section>  
+	
+  <section>
+    <div class="flexile-slide-content">
+      <h3>Source</h3>
+      <div class="main-container">  
+        <p>flexile.js is open source, released under the MIT license, and available on GitHub at...</p>
+        <p>It consists of a JavaScript file (currently about 20kB when minified), and a CSS file (about 18 kB when minified).</p>
+      </div>
+    </div>
+	</section>
+		
+</div>
+
+  <p id="err-message"></p>
+</div>
+
+<script src="../../src/js/flexile.js"></script>
+<script src="introducing-flexile.js"></script>
+</body>
+</html>

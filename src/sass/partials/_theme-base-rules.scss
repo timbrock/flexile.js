@@ -1,0 +1,31 @@
+@mixin theme-base(){
+  
+  //Basic font settings
+  font-size: 35px; //flexile.js will take this and resize based on width.
+  font-family: Helvetica, Arial, "sans-serif";
+  font-weight: normal;
+  line-height: 1.2;
+  
+  h1, h2, h3{
+    font-family: Georgia;
+    font-weight: bold;
+  }
+  
+  h1, h2{
+    top: 30%;
+    font-size: 200%;
+    text-align: center;
+    width: 100%;
+  }
+  
+  h3{
+    font-size: 140%;
+  }
+  
+  p{
+    margin-bottom: 0.5em;
+  }
+  
+  
+  
+}

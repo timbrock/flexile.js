@@ -2,6 +2,25 @@ let flexile = (function(){
   
   "use strict";
   
+  //Array includes (ES2016) polyfill
+  if(!Array.prototype.includes){
+    Object.defineProperty(Array.prototype, 'includes', {
+      value: function(searchElement, fromIndex) {
+        if(this === null || this === undefined){throw new TypeError('"this" is null or not defined');}
+        var o = Object(this);
+        var len = o.length >>> 0;
+        if(len === 0){return false;}
+        var n = fromIndex | 0;
+        var k = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
+        while(k < len){
+          if (o[k] === searchElement){return true;}
+          k++;
+        }
+        return false;
+      }
+    });
+  }
+  
   const stringRep = function(entity){
     return Object.prototype.toString.call(entity);
   };
@@ -305,7 +324,7 @@ let flexile = (function(){
     };
     
     let transitions = {
-      default: {name: "default"},
+      vanish: {name: "vanish"},
       fade: {name: "fade"},
       right: {name: "slide-right"}
     };
@@ -314,7 +333,7 @@ let flexile = (function(){
       wide: {name: "wide", aspect: 16/9},
       monitor: {name: "monitor", aspect: 16/10},
       traditional: {name: "traditional", aspect: 4/3},
-      phone: {name: "phone", aspect: 9/16},
+      tall: {name: "tall", aspect: 9/16},
       square: {name: "square", aspect: 1},
       cinema: {name: "cinema", aspect: 2.39},
       a4p: {name: "a4-portrait", aspect: 210/297},
@@ -369,7 +388,7 @@ let flexile = (function(){
     
   })();
 
-  
+  //Create a configuration object that holds information on themes, aspects, transitions and keys
   const config = function(chain = true){
     
     const isClassSuffixObject = function(obj){
@@ -487,7 +506,6 @@ let flexile = (function(){
     };
     
     
-    
     const removeItems = function(arr, def){
        
       return function(items, prop = def){
@@ -537,7 +555,7 @@ let flexile = (function(){
     })();
     
     const transitionsObj = (function(){
-      const transitions = [helpers.transitions.default];
+      const transitions = [helpers.transitions.vanish];
       return{
         set: changeItems(transitions, isClassSuffixObject, "name"),
         add: changeItems(transitions, isClassSuffixObject, "name", true),
@@ -550,8 +568,8 @@ let flexile = (function(){
     const aspectsObj = (function(){
       const aspects = [helpers.aspects.wide];
       return{
-        set: changeItems(aspects, isAspectObject),
-        add: changeItems(aspects, isAspectObject, "", true),
+        set: changeItems(aspects, isAspectObject, "name"),
+        add: changeItems(aspects, isAspectObject, "name", true),
         remove: removeItems(aspects, "name"),
         errors: function(){return !aspects.length;},
         getClone: function(){return cloneObjArray(aspects);}
@@ -599,7 +617,7 @@ let flexile = (function(){
   };
   
   
-  
+  //Create slideshow given a CSS query (must select exactly one element) and a configuration object
   const create = function(container, configuration = config()){
   
     const setup = (function(){
@@ -630,8 +648,7 @@ let flexile = (function(){
         let $layer = $el(layer);
         $layer.css("z-index", nLayers - index);
         if(!$layer.hasClass("flexile-static-layer")){
-          $layer.addClass("flexile-slide")
-            .wrapChildren("div", "flexile-slide-content");
+          $layer.addClass("flexile-slide");
           out.push(layer);
         }
       });
@@ -659,7 +676,7 @@ let flexile = (function(){
       const updateFontSize = function(){
         let baseSize = parseFloat($slideshow.css("font-size"));
         let newSize = ($box.width()/1000)*baseSize + "px";
-        $box.css("font-size", newSize);
+        $screen.css("font-size", newSize);
       };
       
       return function(){
@@ -749,26 +766,6 @@ let flexile = (function(){
     })();
     
     
-    
-    //Object for changing and keeping track of which slide is visible on "top" of the screen.
-    const top = (function(){
-      let idx;
-      let topClass = "flexile-slide-top";
-      const getCurrent = function(){return $slides.eq(idx);}; //returns wrapper of slide on top of stack
-      return {
-        get index(){return idx;},
-        set index(i){
-          if(idx !== undefined){
-            getCurrent().removeClass(topClass);
-          }
-          idx = i;
-          getCurrent().addClass(topClass);
-        },
-        get handle(){return getCurrent();} 
-      };
-    })();
-    
-    
     //Checks if number corresponds to a real slide before moving slides that require moving on to or off stack
     const topSlide = (function(){
       
@@ -779,24 +776,17 @@ let flexile = (function(){
       let endClass = "flexile-last-slide";
       let stackClass = "flexile-slide-stack"; //class for slide that is not yet discarded
       let discardClass = "flexile-slide-discard";
-      let animateClass = "flexile-animate-transition";
       
       const moveSlide = (function(){  
-
         $slides.addClass(stackClass);
-        $slides.on('transitionend oTransitionEnd transitionend webkitTransitionEnd', function(event){
-          $el(this).removeClass(animateClass);
-        });
         //return object with functions to change classes that should push slides on or off screen.
         return{
           discard: function($handle){
             $handle.removeClass(stackClass)
-              .addClass(animateClass)
               .addClass(discardClass);
           },
           replace: function($handle){
             $handle.removeClass(discardClass)
-              .addClass(animateClass)
               .addClass(stackClass);
           },
         };
@@ -893,7 +883,7 @@ let flexile = (function(){
     
     const turnKeys = (function(){
       
-      const keyFunc = function(){
+      const keyFunc = function(event){
         if(keyMap.size){
 
           //Assume they're trying to do something else if modifier key is pressed
@@ -979,8 +969,8 @@ let flexile = (function(){
     return{
       firstSlide: function(){topSlide.set(0); return this;},
       lastSlide: function(){topSlide.set(nSlides-1); return this;},
-      previousSlide: function(){changeSlide(topSlide.get() - 1); return this;},
-      nextSlide: function(){changeSlide(topSlide.get() + 1); return this;},
+      previousSlide: function(){topSlide.set(topSlide.get() - 1); return this;},
+      nextSlide: function(){topSlide.set(topSlide.get() + 1); return this;},
       nthSlide: function(num){if(isFiniteNumber(num)){topSlide.set(num);} return this;},
       changeTheme: function(name){themes.set(name); return this;},
       changeTransition: function(name){transitions.set(name); return this;},
