@@ -53,7 +53,7 @@ For the most part, ***flexile.js*** works by changing classes dynamically using 
 The `flexile` object created in the flexile.js script exposes two functions. The first, `config`, produces an object that can be used to modify settings such as the list of different aspect ratios you wish to use. The second takes a CSS selection string, that uniquely identifies an element on the page, and a config object and turns the selected element into a presentation.
 
 ### flexile.config
-Creating a configuration object is as simple as calling `flexile.config` in your own script that follows the flexile.js script on the page:
+Creating a config object is as simple as calling `flexile.config` in your own script that follows the flexile.js script on the page:
 
 ``` JavaScript
 <script>
@@ -83,7 +83,7 @@ By default, however, all these functions return the config object itself. So the
 </script>
 ```
 
-If you prefer to receive information about how many items were added or removed on each call, you can instead pass `false` in to the first call and use the first form:
+If you prefer to receive information about how many items were added or removed on each call, you can instead pass `false` in to the first call and use the long form:
 
 ``` JavaScript
 <script>
@@ -98,7 +98,7 @@ If you prefer to receive information about how many items were added or removed 
 
 If an inappropriate value is passed in to one of these functions, then changes will not be made. So what is or isn't appropriate? For themes, transitions and aspects you just need to pass in a suitable string: some combination of letters, numbers, dashes and underscores. (As in the HTML section above, that is one that matches the JavaScript regular expression /^[A-Za-z\d_-]+$/.) An array of such strings can be used to set or add one or more items. For key bindings you must pass in objects (or arrays thereof). Each object must include a `code` property with a numeric value that represent the [keycode](http://keycode.info/) of the key you want to use and a `value` property whose own value is either a string or a number. If it's a string it will be accepted if it matches the regular expression above, but it will only do something useful if it matches one of the following: "first", "last", "previous", "next", "theme", "aspect", "transition" or "fullscreen" (see the section `flexile.create`). In the examples above, the call to `setKeys` associates the string "previous" with the left-arrow key and the string "next" with the right arrow key. If the value of the value property is a number, *n*, then the key with the associated code will be used to move the *n*th slide to the top of the stack (the first slide is 0, not 1).
 
-To make things a little more confusing, you can also set/add themes, aspects and transitions using objects with appropriate "name properties" and include additional properties in objects passed:
+To make things a little more confusing, you can also set/add themes, aspects and transitions using objects with appropriate "name" properties and include additional properties in objects passed:
 
 ``` JavaScript
 <script>
@@ -159,6 +159,50 @@ But you can also use this method and metadata you provided to remove multiple th
 Because this can get confusing, the config object has a `getClone` method that will return a shallow copy of the hidden configuration object so you can check things are as you expected them to be.
 
 To be useful, the data stored in the config object must match a few conditions. There must be at least one theme, one aspect and one transition defined while a key's code cannot be duplicated. The `errors` method of the config object will return an array listing the violations of these conditions or `false` if there are none.
+
+### flexile.create
+The `flexile.create` function takes a CSS selector (that should match exactly one element that contains all the section slides) and a config object (see previous subsection) and creates a ***flexile.js*** presentation. If the second argument is missing, a default configuration object will be created and used but the first argument is mandatory.
+
+``` JavaScript
+<script>
+  let config = flexile.config()
+    .addThemes({name: "dark"})
+    .setTransitions([{name: "slide-right", type: "slide"}, {name: "slide-left", type: "slide"}, {name: "fade"}])
+    .addAspects([{name: "monitor"}, {name: "traditional"}])
+    .setKeys([{code: 37, value: "previous", type: "arrow"}, {code: 39, value: "next", type: "arrow"}]);
+
+  let presentation = flexile.create("#presentation", config);
+</script>
+```
+
+Under the hood, `flexile.create` does quite a bit of work. It wraps the child sections in a couple of divs (see the CSS section for more details), it adds z-index values to each of the sections and adds several classes to these, it resizes text where necessary, it copies over information about themes, aspects and transitions and creates bindings for keys. Finally, it returns a presentation object with functions that can be called to enable switching between slides, between predefined themes/aspect/transitions, and between "normal" and fullscreen mode.
+
+If you are just designing a presentation for a talk and don't care about touch screens, you might not need to use the object returned. By setting appropriate code and value properties with `flexile.config().setKeys`, you can just call `flexile.create` and have everything ready. For instance, you can set the left (code 37) and right (code 39) arrow keys to "previous" and "next" and the presentation you then create can be moved through using those two keys. You can also set the "t" key (code 84) to change your themes (using the value "theme"), the "a" key (code 65) to move through your aspect ratios (with value "aspect"), and the r key (82) to change the default transition mode (using the value "transition"). You can also set a key, such as "f" (code 70) to toggle "fullscreen" mode on and off (where supported). Let's be explicit:   
+
+``` JavaScript
+<script>
+  let config = flexile.config()
+    .addThemes("dark")
+    .setTransitions(["slide-right", "slide-left", "fade"])
+    .addAspects(["monitor", "traditional"])
+    .setKeys([{code: 37, value: "previous"}, {code: 39, value: "next"}])
+    .addKeys([{code: 84, value: "theme"}, {code: 65, value: "aspect"}])
+    .addKeys([{code: 82, value: "transition"}, {code: 70, value: "fullscreen"}]);
+
+flexile.create("#presentation", config); //that's it
+</script>
+```
+If you're so inclined, you can also set keys to transport you to specific slides (see previous subsection) or the first and last slides using `value: "first"` and `value: "last"`.
+
+You can now move on to the CSS section.
+
+If you "do" want to provide support for devices without keyboards or want to add some other features, the presentation object can help you. This object provides the functions `firstSlide`, `lastSlide`, `previousSlide`, `nextSlide` and `nthSlide` which can be used inside callback functions to event handlers. As you might expect, they change the slide deck so that the first, last, previous next or *n*th (you provide *n*, indexed from 0) slide is showing. With these you can design your own navigational controls or gestures.
+
+Similarly, with `changeTheme`, `changeAspect` and `changeTransition` you can set up buttons for changing between themes, aspects or transitions if you set more than one with the config object. If you don't supply an argument, then the next one in the list will be used. If you do and the argument is in the relevant list, then flexile will switch to using that theme/aspect/transition.
+
+The `turnOnFullscreen`, `turnOffFullscreen` and `toggleFullscreen` member functions of the presentation object should be self-explanatory.
+
+The `turnOnKeys`, `turnOffKeys` and `toggleKeys` settings can be used to enable and disable use of the keyboard to control the presentation. This can be helpful if you want to use the same keys across multiple presentations on the same page.
 
 ## CSS
 Coming soon.
