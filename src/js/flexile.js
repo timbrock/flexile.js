@@ -549,7 +549,6 @@ let flexile = (function(){
         set: changeItems(themes, isClassSuffixObject, "name"),
         add: changeItems(themes, isClassSuffixObject, "name", true),
         remove: removeItems(themes, "name"),
-        errors: function(){return !themes.length;},
         getClone: function(){return cloneObjArray(themes);}
       };
     })();
@@ -560,7 +559,6 @@ let flexile = (function(){
         set: changeItems(transitions, isClassSuffixObject, "name"),
         add: changeItems(transitions, isClassSuffixObject, "name", true),
         remove: removeItems(transitions, "name"),
-        errors: function(){return !transitions.length;},
         getClone: function(){return cloneObjArray(transitions);}
       };
     })();
@@ -571,7 +569,6 @@ let flexile = (function(){
         set: changeItems(aspects, isAspectObject, "name"),
         add: changeItems(aspects, isAspectObject, "name", true),
         remove: removeItems(aspects, "name"),
-        errors: function(){return !aspects.length;},
         getClone: function(){return cloneObjArray(aspects);}
       };
     })();
@@ -582,7 +579,6 @@ let flexile = (function(){
         set: changeItems(keys, isKeyObject),
         add: changeItems(keys, isKeyObject, "", true),
         remove: removeItems(keys, "code"),
-        errors: function(){return false;},
         getClone: function(){return cloneObjArray(keys);}
       };
     })();
