@@ -63,15 +63,3 @@
     }
   }
 }
-
-@function height-of-symmetric-border($width-percentage, $aspect-ratio){
-  $horizontal-space: 100% - $width-percentage;
-  $vertical-space: $horizontal-space * $aspect-ratio;
-  @return 100 - $vertical-space;
-}
-
-@function width-of-symmetric-border($height-percentage, $aspect-ratio){
-  $vertical-space: 100% - $height-percentage;
-  $horizontal-space: ($vertical-space/$aspect-ratio);
-  @return 100 - $horizontal-space;
-}

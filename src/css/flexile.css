@@ -285,11 +285,11 @@
 .flexile-slideshow.flexile-theme-light p {
   margin-bottom: 0.5em;
 }
-/* line 9, ../sass/partials/_theme-light.scss */
+/* line 6, ../sass/partials/_theme-light.scss */
 .flexile-slideshow.flexile-theme-light .flexile-screen.flexile-fullscreen {
   background: black;
 }
-/* line 13, ../sass/partials/_theme-light.scss */
+/* line 10, ../sass/partials/_theme-light.scss */
 .flexile-slideshow.flexile-theme-light .flexile-slide {
   background-color: #dddddd;
 }

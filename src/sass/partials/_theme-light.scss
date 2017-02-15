@@ -3,9 +3,6 @@
   @include theme-base();
   color: #333333;
   
-  //May prefer white screen out of fullscreen mode (eg for slide left-right).
-  //For this just need to change rule under
-  //.flexile-slideshow.flexile-theme-light .flexile-screen
   .flexile-screen.flexile-fullscreen{
     background: black;
   }
