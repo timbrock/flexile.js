@@ -57,7 +57,10 @@ Creating a config object is as simple as calling `flexile.config` in your own sc
 
 ``` HTML
 <script>
+(function(){
+  "use strict";
   let config = flexile.config();
+})();
 </script>
 ```
 Hidden in the returned object are some default settings: the "light" theme, the "wide" (16:9) aspect ratio and the "vanish" transition mode. You can replace the default themes, aspects and transitions using the methods of the config object that begin with set (eg `setThemes`) or add to them using the add methods (eg `addThemes`). You can also create your own key bindings (by default there are none). Here's one example:
@@ -212,6 +215,8 @@ Consider the following page:
 
 <script src="path/to/flexile.js"></script>
 <script>
+(function(){
+  "use strict";
   let config = flexile.config()
       .addThemes("dark")
       .setTransitions(["slide-right", "slide-left", "fade"])
@@ -221,6 +226,7 @@ Consider the following page:
       .addKeys([{code: 82, value: "transition"}, {code: 70, value: "fullscreen"}]);
 
   let presentation = flexile.create("#presentation", config);
+})();
 </script>
 </body>
 </html>
