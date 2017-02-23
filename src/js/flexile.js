@@ -36,7 +36,7 @@ let flexile = (function(){
   const hasDuplicates = function(arr){return isArray(arr) && (new Set(arr)).size !== arr.length;};
   
   const isSimpleString = (function(){
-    let classReg = /^[A-Za-z\d_-]+$/i;
+    let classReg = /^[A-Za-z\d_-]+$/;
     return function(string){
       return  isString(string) && classReg.test(string);
     };
