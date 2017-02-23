@@ -728,15 +728,15 @@ let flexile = (function(){
     
     let changeClass = function($elements, midfix){
       let prefix = "flexile-" + midfix + "-";
-      let reg = new RegExp("\\b" + prefix + "[A-Za-z\d_-]+", "g");
-      let remove = function($el){
-        ($el.attr("class").match(reg) || []).forEach(function(oldClass){
-          $el.removeClass(oldClass);
+      let reg = new RegExp("\\b" + prefix + "[A-Za-z\\d_-]+", "g");
+      let remove = function($element){
+        ($element.attr("class").match(reg) || []).forEach(function(oldClass){
+          $element.removeClass(oldClass);
         });
       };
       return function(newClassSuffix){
-        $elements.forEach(function(el){
-          remove($el(el));    
+        $elements.forEach(function(element){
+          remove($el(element));    
         });
         $elements.addClass(prefix + newClassSuffix);
       };
