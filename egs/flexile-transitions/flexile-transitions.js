@@ -2,15 +2,19 @@
 
   "use strict";
   
+  let options = document.querySelectorAll("#transitions option");
+  
+  let transitionsList = Array.from(options).map(function(elem){
+    return elem.getAttribute("value");
+  });
+  
   let config = flexile.config()
-    .setAspects(["wide", "monitor", "traditional", "cinema"])
-    .setThemes(["light", "dark"])
-    .setTransitions("right")
+    .setThemes("white")
+    .setTransitions(transitionsList)
     .addKeys(flexile.helpers.keys.lrpn)
     .addKeys(flexile.helpers.keys.numbers1)
     .addKeys([{code: 219, value: "first"}, {code: 221, value: "last"}])
-    .addKeys([{code: 65, value: "aspect"}, {code: 70, value: "fullscreen"}])
-    .addKeys({code: 84, value: "theme"});
+    .addKeys({code: 82, value: "transition"});
 
   let presentation = flexile.create("#presentation", config);
 
@@ -23,9 +27,11 @@
 
   document.querySelector("#previous-slide").addEventListener("click", doClick(presentation.previousSlide), false);
   document.querySelector("#next-slide").addEventListener("click", doClick(presentation.nextSlide), false);
-  document.querySelector("#change-theme").addEventListener("click", doClick(presentation.changeTheme), false);
-  document.querySelector("#change-aspect").addEventListener("click", doClick(presentation.changeAspect), false);
-  document.querySelector("#change-fullscreen").addEventListener("click", doClick(presentation.toggleFullscreen), false);
 
+  document.querySelector("#transitions").addEventListener("change", function(event){
+    event.preventDefault();
+    presentation.changeTransition(this.options[this.selectedIndex].getAttribute("value"));
+  }, false);
+  
   
 })();

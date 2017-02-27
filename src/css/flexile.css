@@ -104,19 +104,23 @@
   transition-property: transform;
   transition-duration: 1s;
 }
-/* line 63, ../sass/flexile.scss */
+/* line 61, ../sass/flexile.scss */
+.flexile-slideshow .flexile-slide.flexile-animation-off {
+  transition-duration: 0s;
+}
+/* line 66, ../sass/flexile.scss */
 .flexile-slideshow .flexile-slide-discard {
   pointer-events: none;
 }
-/* line 69, ../sass/flexile.scss */
+/* line 72, ../sass/flexile.scss */
 .flexile-slideshow .flexile-transition-vanish.flexile-slide-discard {
   display: none;
 }
-/* line 74, ../sass/flexile.scss */
+/* line 77, ../sass/flexile.scss */
 .flexile-slideshow .flexile-static-layer {
   pointer-events: none;
 }
-/* line 76, ../sass/flexile.scss */
+/* line 79, ../sass/flexile.scss */
 .flexile-slideshow .flexile-static-layer > * {
   pointer-events: auto;
 }
@@ -416,35 +420,35 @@
   opacity: 0;
 }
 /* line 13, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-left {
+.flexile-slideshow .flexile-transition-left {
   will-change: transform;
 }
 /* line 15, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-left.flexile-slide-discard {
+.flexile-slideshow .flexile-transition-left.flexile-slide-discard {
   transform: translateX(-105%);
 }
 /* line 20, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-up {
+.flexile-slideshow .flexile-transition-up {
   will-change: transform;
 }
 /* line 22, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-up.flexile-slide-discard {
+.flexile-slideshow .flexile-transition-up.flexile-slide-discard {
   transform: translateY(-105%);
 }
 /* line 27, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-right {
+.flexile-slideshow .flexile-transition-right {
   will-change: transform;
 }
 /* line 29, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-right.flexile-slide-discard {
+.flexile-slideshow .flexile-transition-right.flexile-slide-discard {
   transform: translateX(105%);
 }
 /* line 34, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-down {
+.flexile-slideshow .flexile-transition-down {
   will-change: transform;
 }
 /* line 36, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-down.flexile-slide-discard {
+.flexile-slideshow .flexile-transition-down.flexile-slide-discard {
   transform: translateY(105%);
 }
 /* line 42, ../sass/partials/_transitions.scss */
@@ -486,150 +490,6 @@
 /* line 73, ../sass/partials/_transitions.scss */
 .flexile-slideshow .flexile-transition-compress-down.flexile-slide-discard {
   transform: scale(1, 0);
-}
-/* line 78, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-box {
-  perspective: 25em;
-}
-/* line 82, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-book-left {
-  will-change: transform;
-  transform-origin: 0% 100%;
-  transform: rotateY(0deg);
-  transition-duration: 1.5s;
-}
-/* line 87, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-book-left.flexile-slide-discard {
-  transform: rotateY(-90deg);
-  transition-timing-function: ease-out;
-}
-/* line 93, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-book-up {
-  will-change: transform;
-  transform-origin: 0% 0%;
-  transform: rotateX(0deg);
-  transition-duration: 1.5s;
-}
-/* line 98, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-book-up.flexile-slide-discard {
-  transform: rotateX(90deg);
-  transition-timing-function: ease-out;
-}
-/* line 104, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-faceplant {
-  will-change: transform;
-  transform-origin: 0% 100%;
-  transition-duration: 1.5s;
-  transition-timing-function: ease-out;
-  transform: rotateX(0deg);
-}
-/* line 110, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-faceplant.flexile-slide-discard {
-  transform: rotateX(-90deg);
-}
-/* line 116, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-across-right {
-  transform: translateX(-105%);
-  will-change: transform;
-  transition-duration: 1s;
-}
-/* line 120, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-across-right.flexile-slide-top {
-  transform: translateX(0);
-}
-/* line 123, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-across-right.flexile-slide-discard {
-  transform: translateX(105%);
-}
-/* line 128, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-left-across {
-  transform: translateX(105%);
-  will-change: transform;
-  transition-duration: 1s;
-}
-/* line 132, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-left-across.flexile-slide-top {
-  transform: translateX(0);
-}
-/* line 135, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-left-across.flexile-slide-discard {
-  transform: translateX(-105%);
-}
-/* line 140, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-down-across {
-  transform: translateY(-105%);
-  will-change: transform;
-  transition-duration: 1s;
-}
-/* line 144, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-down-across.flexile-slide-top {
-  transform: translateY(0);
-}
-/* line 147, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-down-across.flexile-slide-discard {
-  transform: translateY(105%);
-}
-/* line 152, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-up-across {
-  transform: translateY(105%);
-  will-change: transform;
-  transition-duration: 1s;
-}
-/* line 156, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-up-across.flexile-slide-top {
-  transform: translateY(0);
-}
-/* line 159, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-up-across.flexile-slide-discard {
-  transform: translateY(-105%);
-}
-/* line 164, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-right-down {
-  transform: translateX(-105%);
-  will-change: transform;
-  transition-duration: 1s;
-}
-/* line 168, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-right-down.flexile-slide-top {
-  transform: translateY(0);
-}
-/* line 171, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-right-down.flexile-slide-discard {
-  transform: translateY(105%);
-}
-/* line 176, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-down-right {
-  transform: translateY(-105%);
-  will-change: transform;
-  transition-duration: 1s;
-}
-/* line 180, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-down-right.flexile-slide-top {
-  transform: translateY(0);
-}
-/* line 183, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-slide-down-right.flexile-slide-discard {
-  transform: translateX(105%);
-}
-/* line 188, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-drop-in {
-  transform: translateY(-105%);
-  will-change: transform;
-  transition-duration: 1s;
-}
-/* line 192, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-drop-in.flexile-slide-top {
-  transform: translateY(0);
-}
-/* line 197, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-pop-up {
-  transform: translateY(105%);
-  will-change: transform;
-  transition-duration: 1s;
-}
-/* line 201, ../sass/partials/_transitions.scss */
-.flexile-slideshow .flexile-transition-pop-up.flexile-slide-top {
-  transform: translateY(0);
 }
 /* line 2, ../sass/partials/_helpers-transitions.scss */
 .flexile-slideshow .flexile-transition-shrink {
@@ -820,6 +680,150 @@
 /* line 50, ../sass/partials/_helpers-transitions.scss */
 .flexile-slideshow .flexile-transition-spin-1080a.flexile-slide-discard {
   transform: rotateZ(-1080deg) scale(0);
+}
+/* line 102, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-box {
+  perspective: 25em;
+}
+/* line 106, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-book {
+  will-change: transform;
+  transform-origin: 0% 100%;
+  transform: rotateY(0deg);
+  transition-duration: 1.5s;
+}
+/* line 111, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-book.flexile-slide-discard {
+  transform: rotateY(-90deg);
+  transition-timing-function: ease-out;
+}
+/* line 117, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-calendar {
+  will-change: transform;
+  transform-origin: 0% 0%;
+  transform: rotateX(0deg);
+  transition-duration: 1.5s;
+}
+/* line 122, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-calendar.flexile-slide-discard {
+  transform: rotateX(90deg);
+  transition-timing-function: ease-out;
+}
+/* line 128, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-faceplant {
+  will-change: transform;
+  transform-origin: 0% 100%;
+  transition-duration: 1.5s;
+  transition-timing-function: ease-out;
+  transform: rotateX(0deg);
+}
+/* line 134, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-faceplant.flexile-slide-discard {
+  transform: rotateX(-90deg);
+}
+/* line 140, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-proceed-left {
+  transform: translateX(105%);
+  will-change: transform;
+  transition-duration: 1s;
+}
+/* line 144, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-proceed-left.flexile-slide-top {
+  transform: translateX(0);
+}
+/* line 147, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-proceed-left.flexile-slide-discard {
+  transform: translateX(-105%);
+}
+/* line 152, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-proceed-up {
+  transform: translateY(105%);
+  will-change: transform;
+  transition-duration: 1s;
+}
+/* line 156, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-proceed-up.flexile-slide-top {
+  transform: translateY(0);
+}
+/* line 159, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-proceed-up.flexile-slide-discard {
+  transform: translateY(-105%);
+}
+/* line 164, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-proceed-right {
+  transform: translateX(-105%);
+  will-change: transform;
+  transition-duration: 1s;
+}
+/* line 168, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-proceed-right.flexile-slide-top {
+  transform: translateX(0);
+}
+/* line 171, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-proceed-right.flexile-slide-discard {
+  transform: translateX(105%);
+}
+/* line 176, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-proceed-down {
+  transform: translateY(-105%);
+  will-change: transform;
+  transition-duration: 1s;
+}
+/* line 180, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-proceed-down.flexile-slide-top {
+  transform: translateY(0);
+}
+/* line 183, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-proceed-down.flexile-slide-discard {
+  transform: translateY(105%);
+}
+/* line 189, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-proceed-right-down {
+  transform: translateX(-105%);
+  will-change: transform;
+  transition-duration: 1s;
+}
+/* line 193, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-proceed-right-down.flexile-slide-top {
+  transform: translateY(0);
+}
+/* line 196, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-proceed-right-down.flexile-slide-discard {
+  transform: translateY(105%);
+}
+/* line 201, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-proceed-down-right {
+  transform: translateY(-105%);
+  will-change: transform;
+  transition-duration: 1s;
+}
+/* line 205, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-proceed-down-right.flexile-slide-top {
+  transform: translateY(0);
+}
+/* line 208, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-proceed-down-right.flexile-slide-discard {
+  transform: translateX(105%);
+}
+/* line 213, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-drop-in {
+  transform: translateY(-105%);
+  will-change: transform;
+  transition-duration: 1s;
+}
+/* line 217, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-drop-in.flexile-slide-top {
+  transform: translateY(0);
+}
+/* line 222, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-pop-up {
+  transform: translateY(105%);
+  will-change: transform;
+  transition-duration: 1s;
+}
+/* line 226, ../sass/partials/_transitions.scss */
+.flexile-slideshow .flexile-transition-pop-up.flexile-slide-top {
+  transform: translateY(0);
 }
 
 /*# sourceMappingURL=flexile.css.map */

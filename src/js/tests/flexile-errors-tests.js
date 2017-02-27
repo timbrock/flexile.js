@@ -16,7 +16,7 @@
       it("should return false if no errors", function(){
         expect(func()).toBe(false);
         obj.addThemes("dark");
-        obj.addTransitions("slide-right");
+        obj.addTransitions("right");
         obj.addAspects({name: "cinema", aspect: 2.39});
         obj.addKeys({code: 22, value: 22});
         expect(func()).toBe(false);

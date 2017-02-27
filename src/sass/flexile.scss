@@ -14,7 +14,7 @@
 	.flexile-screen{
     //In most cases screen is not visible unless in fullscreen mode.
     //All the provided themes overwrite the background set below when in fullscreen.
-    //With some transitions like slide-right-across, screen can be seen during transitions.
+    //With some transitions like proceed-right, screen can be seen during transitions.
     //May or may not want to overwrite this background setting in theme to match colour in fullscreen mode.
     background: none;
 		position: absolute;
@@ -58,8 +58,11 @@
   .flexile-slide{
     transition-property: transform;
     transition-duration: 1s;
+    &.flexile-animation-off{
+      transition-duration: 0s;
+    }
   }
-  
+    
   .flexile-slide-discard{
     pointer-events: none;
   }

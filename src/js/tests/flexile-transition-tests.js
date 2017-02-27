@@ -278,7 +278,7 @@
       
       beforeEach(function(){
         obj = flexile.config(false);
-        obj.addTransitions(["shrink", {name: "slide-right", type: "slide"}, {name: "slide-left", type: "slide"}, {name: "spin-360", type: "spin"}, {name:"fade", type: "static"}]);
+        obj.addTransitions(["shrink", {name: "right", type: "slide"}, {name: "left", type: "slide"}, {name: "spin-360", type: "spin"}, {name:"fade", type: "static"}]);
         func = obj.removeTransitions;
         defLen = obj.getClone().transitions.length;
       });
@@ -310,7 +310,7 @@
       it("should return number of matched properties if strings passed match default property values, transitions should be updated", function(){  
         expect(func("shrink")).toBe(1);
         expect(obj.getClone().transitions.length).toBe(defLen - 1);
-        expect(func(["slide-left", "slide-right"])).toBe(2);
+        expect(func(["left", "right"])).toBe(2);
         expect(obj.getClone().transitions.length).toBe(defLen - 3);
       });
       

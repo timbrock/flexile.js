@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>flexile.js transitions</title>
+
+<link rel="stylesheet" type="text/css" href="../../src/css/flexile.css">
+<link rel="stylesheet" type="text/css" href="flexile-transitions.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>flexile.js transitions example</h1>
+
+<form>
+	<label for="transitions">Transition</label>
+	<select name="transitions" id="transitions">
+		<option value="vanish" selected="selected">vanish</option>
+		<option value="fade">fade</option>
+		<option value="left">left</option>
+		<option value="up">up</option>
+		<option value="right">right</option>
+		<option value="down">down</option>
+		<option value="compress-left">compress-left</option>
+		<option value="compress-up">compress-up</option>
+		<option value="compress-right">compress-right</option>
+		<option value="compress-down">compress-down</option>
+		<option value="shrink">shrink</option>
+		<option value="squash-1">squash-1</option>
+		<option value="squash-2">squash-2</option>
+		<option value="squash-3">squash-3</option>
+		<option value="squash-4">squash-4</option>
+		<option value="rotate-1">rotate-1</option>
+		<option value="rotate-2">rotate-2</option>
+		<option value="rotate-3">rotate-3</option>
+		<option value="rotate-4">rotate-4</option>
+		<option value="rotate-1a">rotate-1a</option>
+		<option value="rotate-2a">rotate-2a</option>
+		<option value="rotate-3a">rotate-3a</option>
+		<option value="rotate-4a">rotate-4a</option>
+		<option value="spin-360">spin-360</option>
+		<option value="spin-720">spin-720</option>
+		<option value="spin-1080">spin-1080</option>
+		<option value="spin-360a">spin-360a</option>
+		<option value="spin-720a">spin-720a</option>
+		<option value="spin-1080a">spin-1080a</option>
+		<option value="book">book</option>
+		<option value="calendar">calendar</option>
+		<option value="faceplant">faceplant</option>
+		<option value="proceed-left">proceed-left</option>
+		<option value="proceed-up">proceed-up</option>
+		<option value="proceed-right">proceed-right</option>
+		<option value="proceed-down">proceed-down</option>
+		<option value="proceed-right-down">proceed-right-down</option>
+		<option value="proceed-down-right">proceed-down-right</option>
+		<option value="drop-in">drop-in</option>
+		<option value="pop-up">pop-up</option>
+	</select>
+</form>
+
+
+<div class="presentation-wrapper">
+<div id="presentation">
+ 
+  <section class="flexile-static-layer">
+    <span id="previous-slide" class="button arrow left-arrow"><span>&larr;</span></span>
+    <span id="next-slide" class="button arrow right-arrow"><span>&rarr;</span></span>
+  </section>
+
+  <section>
+    <div class="flexile-slide-content">
+      <h2>flexile.js transitions</h2>
+      <p class="small-note">Use the arrows below or the left and right arrows on your keyboard to navigate.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="flexile-slide-content">
+      <p>The default transition mode is "vanish". With vanish, transitions occur instantly.</p>
+    </div>
+	</section>
+
+  <section>
+    <div class="flexile-slide-content">
+      <p>To change the transition mode, simply use the drop-down menu above and then move forwards or backwards through the slides.</p>
+    </div>
+  </section>
+  
+  <section>
+    <div class="flexile-slide-content">
+      <p>There are (currently) 40 transition modes to choose from.</p>
+    </div>
+  </section>
+  
+  <section>
+    <div class="flexile-slide-content">
+      <p>The "fade" mode works by making the top slide completely transparent.</p>
+    </div>
+  </section>  
+  
+  <section>
+    <div class="flexile-slide-content">
+      <p>All the other modes move slides across the screen or shrink them.</p>
+    </div>
+  </section>
+	
+  <section>
+    <div class="flexile-slide-content">
+      <p>Some modes (like "spin-1080") should probably be used sparingly.</p>
+    </div>
+  </section>
+  
+  <section>
+    <div class="flexile-slide-content">
+      <p>The end.</p>
+    </div>
+  </section>
+
+</div>
+</div>
+
+<p class="end-p">End of example.</p>
+
+</div>
+
+<script src="../../src/js/flexile.js"></script>
+<script src="flexile-transitions.js"></script>
+
+</body>
+</html>
