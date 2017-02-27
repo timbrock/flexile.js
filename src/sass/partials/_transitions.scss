@@ -10,28 +10,28 @@
   }
   
   
-  .flexile-transition-slide-left{
+  .flexile-transition-left{
     will-change: transform;
     &.flexile-slide-discard{
       transform: translateX(-105%);
     }
   }
   
-  .flexile-transition-slide-up{
+  .flexile-transition-up{
     will-change: transform;
     &.flexile-slide-discard{
       transform: translateY(-105%);
     }
   }  
   
-  .flexile-transition-slide-right{
+  .flexile-transition-right{
     will-change: transform;
     &.flexile-slide-discard{
       transform: translateX(105%);
     }
   }
 
-  .flexile-transition-slide-down{
+  .flexile-transition-down{
     will-change: transform;
     &.flexile-slide-discard{
       transform: translateY(105%);
@@ -75,11 +75,35 @@
     }
   }
   
+  
+  @include squash(shrink, 50%, 50%);
+  @include squash(squash-1, 0%, 0%);
+  @include squash(squash-2, 100%, 0%);
+  @include squash(squash-3, 100%, 100%);
+  @include squash(squash-4, 0%, 100%);
+  
+  @include rotate-clockwise(rotate-1, 0%, 0%);
+  @include rotate-clockwise(rotate-2, 100%, 0%);
+  @include rotate-clockwise(rotate-3, 100%, 100%);
+  @include rotate-clockwise(rotate-4, 0%, 100%);
+  @include rotate-anti-clockwise(rotate-1a, 0%, 0%);
+  @include rotate-anti-clockwise(rotate-2a, 100%, 0%);
+  @include rotate-anti-clockwise(rotate-3a, 100%, 100%);
+  @include rotate-anti-clockwise(rotate-4a, 0%, 100%);
+  
+  @include spin-clockwise(spin-360, 360);
+  @include spin-clockwise(spin-720, 720);
+  @include spin-clockwise(spin-1080, 1080);
+  @include spin-anti-clockwise(spin-360a, 360);
+  @include spin-anti-clockwise(spin-720a, 720);
+  @include spin-anti-clockwise(spin-1080a, 1080);
+  
+  
   .flexile-box{
     perspective: 25em;
   }
   
-  .flexile-transition-book-left{
+  .flexile-transition-book{
     will-change: transform;
     transform-origin: 0% 100%;
     transform: rotateY(0deg);
@@ -90,7 +114,7 @@
     }
   }
   
-  .flexile-transition-book-up{
+  .flexile-transition-calendar{
     will-change: transform;
     transform-origin: 0% 0%;
     transform: rotateX(0deg);
@@ -113,19 +137,7 @@
   }
   
   
-  .flexile-transition-slide-across-right{
-    transform: translateX(-105%);
-    will-change: transform;
-    transition-duration: 1s;
-    &.flexile-slide-top{
-      transform: translateX(0);
-    }
-    &.flexile-slide-discard{
-      transform: translateX(105%);
-    }
-  }
-  
-  .flexile-transition-slide-left-across{
+  .flexile-transition-proceed-left{
     transform: translateX(105%);
     will-change: transform;
     transition-duration: 1s;
@@ -137,19 +149,7 @@
     }
   }
   
-  .flexile-transition-slide-down-across{
-    transform: translateY(-105%);
-    will-change: transform;
-    transition-duration: 1s;
-    &.flexile-slide-top{
-      transform: translateY(0);
-    }
-    &.flexile-slide-discard{
-      transform: translateY(105%);
-    }
-  }
-  
-  .flexile-transition-slide-up-across{
+  .flexile-transition-proceed-up{
     transform: translateY(105%);
     will-change: transform;
     transition-duration: 1s;
@@ -161,7 +161,32 @@
     }
   }
   
-  .flexile-transition-slide-right-down{
+ .flexile-transition-proceed-right{
+    transform: translateX(-105%);
+    will-change: transform;
+    transition-duration: 1s;
+    &.flexile-slide-top{
+      transform: translateX(0);
+    }
+    &.flexile-slide-discard{
+      transform: translateX(105%);
+    }
+  }
+  
+  .flexile-transition-proceed-down{
+    transform: translateY(-105%);
+    will-change: transform;
+    transition-duration: 1s;
+    &.flexile-slide-top{
+      transform: translateY(0);
+    }
+    &.flexile-slide-discard{
+      transform: translateY(105%);
+    }
+  }
+  
+  
+  .flexile-transition-proceed-right-down{
     transform: translateX(-105%);
     will-change: transform;
     transition-duration: 1s;
@@ -173,7 +198,7 @@
     }
   }
   
-  .flexile-transition-slide-down-right{
+  .flexile-transition-proceed-down-right{
     transform: translateY(-105%);
     will-change: transform;
     transition-duration: 1s;
@@ -202,29 +227,6 @@
       transform: translateY(0);
     }
   }
-  
-  
-  @include squash(shrink, 50%, 50%);
-  @include squash(squash-1, 0%, 0%);
-  @include squash(squash-2, 100%, 0%);
-  @include squash(squash-3, 100%, 100%);
-  @include squash(squash-4, 0%, 100%);
-  
-  @include rotate-clockwise(rotate-1, 0%, 0%);
-  @include rotate-clockwise(rotate-2, 100%, 0%);
-  @include rotate-clockwise(rotate-3, 100%, 100%);
-  @include rotate-clockwise(rotate-4, 0%, 100%);
-  @include rotate-anti-clockwise(rotate-1a, 0%, 0%);
-  @include rotate-anti-clockwise(rotate-2a, 100%, 0%);
-  @include rotate-anti-clockwise(rotate-3a, 100%, 100%);
-  @include rotate-anti-clockwise(rotate-4a, 0%, 100%);
-  
-  @include spin-clockwise(spin-360, 360);
-  @include spin-clockwise(spin-720, 720);
-  @include spin-clockwise(spin-1080, 1080);
-  @include spin-anti-clockwise(spin-360a, 360);
-  @include spin-anti-clockwise(spin-720a, 720);
-  @include spin-anti-clockwise(spin-1080a, 1080);
   
   
 }

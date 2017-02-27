@@ -57,10 +57,14 @@ Creating a config object is as simple as calling `flexile.config` in your own sc
 
 ``` HTML
 <script>
+<<<<<<< HEAD
+  let config = flexile.config();
+=======
 (function(){
   "use strict";
   let config = flexile.config();
 })();
+>>>>>>> master
 </script>
 ```
 Hidden in the returned object are some default settings: the "light" theme, the "wide" (16:9) aspect ratio and the "vanish" transition mode. You can replace the default themes, aspects and transitions using the methods of the config object that begin with set (eg `setThemes`) or add to them using the add methods (eg `addThemes`). You can also create your own key bindings (by default there are none). Here's one example:
@@ -215,8 +219,11 @@ Consider the following page:
 
 <script src="path/to/flexile.js"></script>
 <script>
+<<<<<<< HEAD
+=======
 (function(){
   "use strict";
+>>>>>>> master
   let config = flexile.config()
       .addThemes("dark")
       .setTransitions(["slide-right", "slide-left", "fade"])
@@ -226,7 +233,10 @@ Consider the following page:
       .addKeys([{code: 82, value: "transition"}, {code: 70, value: "fullscreen"}]);
 
   let presentation = flexile.create("#presentation", config);
+<<<<<<< HEAD
+=======
 })();
+>>>>>>> master
 </script>
 </body>
 </html>
@@ -299,7 +309,7 @@ The flexile.css rules "reset" paddings, margins and etc to remove common inconsi
 The flexile.css folder includes class definitions for 8 aspect ratios: wide (16:9), monitor (16:10), traditional (4:3), cinema (239:100), tall (9:16), a4-portrait (210:297) and a4-landscape (297:210). Adding your own only takes a few lines of CSS and you can search the CSS source code for ".flexile-slideshow.flexile-aspect-wide" (for example) and copy and adapt. But if you use SASS you can just use the `make-aspect` mixin from the "_helpers.scss" partial file. The mixin should be called with a name (eg "very-wide" if you want to make a class "flexile-aspect-very-wide"), a width value and a height value. The width and height values need to be integers, so for a "very-wide" aspect you could use 25 and 10 (or 250 and 100 etc) but not 2.5 and 1.
 
 ### Creating your own transitions
-***flexile.js*** uses pure CSS transitions based on the classes "flexile-slide", "flexile-slide-stack", "flexile-slide-top" and "flexile-slide-discard". There's already around 40 transitions supplied in the CSS file. If you want to make your own I suggest looking at the CSS file or at the "_transitions.scss" partials file to see how they're done.
+***flexile.js*** uses CSS transitions based on the classes "flexile-slide", "flexile-slide-stack", "flexile-slide-top" and "flexile-slide-discard". There's already around 40 transitions supplied in the CSS file. If you want to make your own I suggest looking at the CSS file or at the "_transitions.scss" partials file to see how they're done.
 
 ### Ad hoc CSS
 Alongside themes, aspects and transitions, you'll probably want to add your own ad hoc CSS suitable for individual presentations. This is especially important for the placement of elements. By default, the children of slides and static layers are set to have absolute positioning (with a display type of block) so that text and images can be easily placed anywhere on a slide. If you don't add any CSS for your layer or slide's contents or overwrite the default behaviour in your theme, then most of it is likely to end up in the top left corner of your presentation. You should also size elements like images and video in percentages.

@@ -1,0 +1,126 @@
+@charset "utf-8";
+
+form{
+  margin-bottom: 1em;
+}
+
+.presentation-wrapper{
+  width: 100%;
+  max-width: 800px;
+}
+
+.flexile-slideshow section.flexile-slide{
+  background-image: url(background.jpg);
+  background-position: center;
+  background-size: cover;
+}
+
+.flexile-slideshow .flexile-slide-content{
+  border: 0.02em solid black;
+  width: 95.22222%;
+  height: 91.50617%;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.flexile-slideshow .flexile-slide-content > *{
+  display: block;
+  position: absolute;
+}
+
+.flexile-slideshow p{
+  width: 85%;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, 0%);
+}
+
+.flexile-slideshow .small-note{
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 75%;
+  width: 60%;
+  font-family: Georgia;
+  color: #888888;
+  text-align: center;
+}
+
+.flexile-slideshow span.button{
+  display: inline-block;
+  border-radius: 0.15em;
+  color: inherit;
+  padding: 0px 0.15em 0.06em 0.15em;
+  margin-left: 0.15em;
+  margin-right: 0.15em;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+
+.flexile-slideshow span.button{
+  border: solid 0.03em rgb(187,187,187);
+  box-shadow: inset 0 0.05em 0 rgba(255, 255, 255, 0.4), 0 0.05em 0.05em rgba(0, 0, 0, 0.2);
+  background: rgb(240,240,240);
+}
+
+.flexile-slideshow  span.button:hover{
+	color: black;
+}
+
+.flexile-slideshow  span.button:active{
+	background: rgb(10,10,10);
+  color: rgb(245,245,245);
+  box-shadow: none;
+}
+
+.flexile-slideshow span.button.arrow{
+  font-size: 150%;
+  bottom: 10%;
+}
+
+.flexile-slideshow span.button.arrow span{
+  position: relative;
+  top: -0.05em; 
+}
+
+.flexile-slideshow .left-arrow{
+  left: 5%;
+}
+
+.flexile-slideshow .flexile-first-slide .left-arrow{
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.flexile-slideshow .flexile-last-slide .right-arrow{
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.flexile-slideshow .right-arrow{
+  right: 5%;
+}
+
+.flexile-slideshow a{
+  color: rgb(0, 0, 238);
+}
+
+.flexile-slideshow a:visited{
+  color: rgb(0, 0, 238);
+}
+
+.flexile-slideshow a:hover{
+  color: rgb(0, 0, 238);  
+}
+
+.flexile-slideshow a:visited{
+  color: rgb(0, 0, 238);
+}
+
+p.end-p{
+  margin-bottom: 300px;
+}

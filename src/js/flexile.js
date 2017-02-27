@@ -36,7 +36,7 @@ let flexile = (function(){
   const hasDuplicates = function(arr){return isArray(arr) && (new Set(arr)).size !== arr.length;};
   
   const isSimpleString = (function(){
-    let classReg = /^[A-Za-z\d_-]+$/i;
+    let classReg = /^[A-Za-z\d_-]+$/;
     return function(string){
       return  isString(string) && classReg.test(string);
     };
@@ -326,7 +326,7 @@ let flexile = (function(){
     let transitions = {
       vanish: {name: "vanish"},
       fade: {name: "fade"},
-      right: {name: "slide-right"}
+      right: {name: "right"}
     };
     
     let aspects = {
@@ -969,7 +969,12 @@ let flexile = (function(){
       nextSlide: function(){topSlide.set(topSlide.get() + 1); return this;},
       nthSlide: function(num){if(isFiniteNumber(num)){topSlide.set(num);} return this;},
       changeTheme: function(name){themes.set(name); return this;},
-      changeTransition: function(name){transitions.set(name); return this;},
+      changeTransition: function(name){
+        $slides.addClass("flexile-animation-off");
+        transitions.set(name);
+        $slides.removeClass("flexile-animation-off");
+        return this;
+      },
       changeAspect: function(name){aspects.set(name); return this;},
       turnOnFullscreen: function(name){fullscreen.on(); return this;},
       turnOffFullscreen: function(name){fullscreen.off(); return this;},
